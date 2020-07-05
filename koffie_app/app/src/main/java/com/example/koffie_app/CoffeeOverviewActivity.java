@@ -29,7 +29,7 @@ public class CoffeeOverviewActivity extends AppCompatActivity {
             coffees[i] = new Coffee("Coffee " + i, dummyString);
         }
 
-        recyclerViewAdapter = new CoffeeOverviewAdapter(coffees);
+        recyclerViewAdapter = new CoffeeOverviewAdapter(coffees, this);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 }
