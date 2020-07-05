@@ -14,7 +14,7 @@
         android:layout_marginBottom="16dp"
         android:contentDescription="@string/imgDesc_coffeeBeanIcon"
         app:layout_constraintBottom_toTopOf="@+id/textView3"
-        app:layout_constraintEnd_toStartOf="@+id/textView"
+        app:layout_constraintEnd_toStartOf="@+id/coffeecard_textView"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.45" />
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/coffeecard_textView"
         android:layout_width="201dp"
         android:layout_height="33dp"
         android:gravity="center_horizontal"
