@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,13 +25,15 @@ class CoffeeOverviewAdapter extends RecyclerView.Adapter<CoffeeOverviewAdapter.C
 
     // internal class
     public static class CoffeeOverviewViewHolder extends RecyclerView.ViewHolder{
-        public TextView textView;
+        public TextView textViewTitle;
+        public TextView textViewDesc;
         public ImageView imageView;
 
         public CoffeeOverviewViewHolder(View v, Context context){
             super(v);
-            textView = v.findViewById(R.id.coffeecard_textView);
-            textView.setTypeface(ResourcesCompat.getFont(context, R.font.rock_salt_regular));
+            textViewTitle = v.findViewById(R.id.coffeecard_textView);
+            textViewTitle.setTypeface(ResourcesCompat.getFont(context, R.font.rock_salt_regular));
+//            textView.setTextColor(Color.parseColor("#FFFFFF"));
             imageView = v.findViewById(R.id.coffeecard_imageView);
 
 //            textView.setTypeface(ResourcesCompat.getFont(context, R.font.RockSalt_Regular));
@@ -48,8 +51,10 @@ class CoffeeOverviewAdapter extends RecyclerView.Adapter<CoffeeOverviewAdapter.C
 
     @Override
     public void onBindViewHolder(@NonNull CoffeeOverviewViewHolder holder, int position) {
-        holder.textView.setText(coffees[position].getName());
-        holder.imageView.setImageResource(R.drawable.dezeinfovoorbedankt);      // TODO: 05/07/2020 retrieve images from room db 
+        holder.textViewTitle.setText(coffees[position].getName());
+        holder.textViewTitle.setTextColor(Color.parseColor(coffees[position].getColorCode()));
+        holder.imageView.setImageResource(R.drawable.dummy_coffee);      // TODO: 05/07/2020 retrieve images
+        // from room db
     }
 
     @Override

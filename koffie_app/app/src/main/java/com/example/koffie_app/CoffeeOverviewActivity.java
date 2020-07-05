@@ -26,7 +26,7 @@ public class CoffeeOverviewActivity extends AppCompatActivity {
         String dummyString = "This coffee very delicious, make dis every day yes.";
         Coffee[] coffees = new Coffee[20];
         for (int i = 0; i < 20; i++){
-            coffees[i] = new Coffee("Coffee " + i, dummyString);
+            coffees[i] = new Coffee("Coffee " + i, dummyString, "#ffffff");
         }
 
         recyclerViewAdapter = new CoffeeOverviewAdapter(coffees, this);
