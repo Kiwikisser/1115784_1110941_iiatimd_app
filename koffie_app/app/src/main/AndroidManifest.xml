@@ -17,7 +17,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".CoffeeIntroductionActivity" />
+        <activity android:name=".CoffeeIntroduction" />
+        <activity android:name=".CoffeeIntroductionLast" />
+        <activity android:name=".Register" />
+        <activity android:name=".Login" />
 
         <activity android:name=".CoffeeOverview"/>
         <meta-data
