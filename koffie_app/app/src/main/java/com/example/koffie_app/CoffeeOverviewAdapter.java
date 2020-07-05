@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -47,6 +48,15 @@ class CoffeeOverviewAdapter extends RecyclerView.Adapter<CoffeeOverviewAdapter.C
     public CoffeeOverviewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View v = (CardView) LayoutInflater.from(parent.getContext()).inflate(R.layout.coffee_overview_card,parent,
                 false);
+        v.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,
+                        CoffeeIntroductionActivity.class);
+                context.startActivity(intent);
+
+            }
+        });
         CoffeeOverviewViewHolder coffeeOverviewViewHolder = new CoffeeOverviewViewHolder(v, context);
         return coffeeOverviewViewHolder;
     }
