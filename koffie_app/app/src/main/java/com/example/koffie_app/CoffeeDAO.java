@@ -16,5 +16,5 @@ public interface CoffeeDAO {
     void InsertCoffee(Coffee coffee);
 
     @Delete
-    void delete(Coffee coffee);
+    void deleteCoffee(Coffee coffee);
 }
