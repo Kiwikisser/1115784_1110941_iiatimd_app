@@ -21,10 +21,11 @@ class Coffee {
 //    private String image = "dezeinfovoorbedankt.jpg";
 //    int resID;
 
-    public Coffee(String name, String description, String colorCode){
+    public Coffee(String name, String description, String colorCode, int id){
         this.name = name;
         this.description = description;
         this.colorCode = colorCode;
+        this.id = id;
     }
 
     public String getName() {
