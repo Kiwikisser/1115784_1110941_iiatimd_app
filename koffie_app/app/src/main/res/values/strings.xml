@@ -21,6 +21,8 @@
     <!-- Content Values -->
     <string name="intro_c1_content">Learn how to make different kinds of coffee by following our catalog of recipes</string>
     <string name="intro_c3_content">Make your own coffee mixes, follow your process and get notified of new coffee receipts by making your own account.</string>
+    <string name="dummy_description">In a nutshell, it’s made by slowly dripping cold filtered
+        water through your fresh grinds for a long period – often 10 hours or more. </string>
 
     <!-- Form Labels -->
     <string name="form_name">Name</string>
