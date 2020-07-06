@@ -10,8 +10,11 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -25,7 +28,7 @@ public class ConnectionPeriodicTask implements Runnable{
     private AppRoomDatabase database;
     private boolean inetConnection;
 
-    private final String URL = "https://192.168.2.6:8000/api/recipes";
+    private final String URL = "http://192.168.2.6:8000/api/recipes";
 
     private ConnectionPeriodicTask(Context ctx, Handler hndlr, int intrvl, AppRoomDatabase db){
         context = ctx;
@@ -47,33 +50,68 @@ public class ConnectionPeriodicTask implements Runnable{
         //check connection
         //start request task
         //save to room
-//        Log.d(String.valueOf(isOnline()), "run: interval");
+        Log.d(String.valueOf(isOnline()), "run: interval");
         inetConnection = isOnline();
 //        getData(database);
 
         RequestQueue queue =
                 VolleySingleton.getInstance(context).getRequestQueue();
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
-                new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject response) {
-                try {
-//                    jobs[5] = new Job(response.get("name").toString(), "lightsaber", 6);
-//                    recyclerViewAdapter.notifyDataSetChanged();
-                    Log.d("api response", String.valueOf(response.get("0")));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
-        }, new Response.ErrorListener() {
+//        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+//                new Response.Listener<JSONObject>() {
+//            @Override
+//            public void onResponse(JSONObject response) {
+////                try {
+////                    jobs[5] = new Job(response.get("name").toString(), "lightsaber", 6);
+////                    recyclerViewAdapter.notifyDataSetChanged();
+////                    Log.d("api response", response.getJSONObject("recipe_id").toString());
+////                    Coffee coffee = new Coffee(response.get("0").toString(), "no", "#fff", 1);
+////                }finally {
+////
+////                }
+//                Log.d("api response", String.valueOf(response));
+//                Log.d("is it working?", "onResponse: ");
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d(error.getMessage(), "onErrorResponse: ");
+//                Log.e("get error", "onErrorResponse: ", error);
+//            }
+//        });
+
+//        StringRequest stringRequest = new StringRequest(Request.Method.GET, "http://192.168.2" +
+//                ".6:8000/api/recipes", new Response.Listener<String>() {
+//            @Override
+//            public void onResponse(String response) {
+//                Log.d("onResponse: ", response);
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d(error.getMessage(), "onErrorResponse: ");
+//            }
+//        });
+
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        try {
+                            Log.d("onResponse: ", String.valueOf(response.getJSONObject(0)));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.d(error.getMessage(), "onErrorResponse: ");
             }
         });
+
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
 
-        handler.postDelayed(this, interval);
+        handler.postDelayed(this, 5000);
     }
 
     public boolean getInetConnection(){
