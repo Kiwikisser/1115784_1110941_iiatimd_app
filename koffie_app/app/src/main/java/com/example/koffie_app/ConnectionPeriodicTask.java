@@ -6,6 +6,15 @@ import android.util.Log;
 import java.io.IOException;
 import android.os.Handler;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class ConnectionPeriodicTask implements Runnable{
 // should be singleton?
 
@@ -15,6 +24,8 @@ public class ConnectionPeriodicTask implements Runnable{
     private int interval;
     private AppRoomDatabase database;
     private boolean inetConnection;
+
+    private final String URL = "https://192.168.2.6:8000/api/recipes";
 
     private ConnectionPeriodicTask(Context ctx, Handler hndlr, int intrvl, AppRoomDatabase db){
         context = ctx;
@@ -38,7 +49,30 @@ public class ConnectionPeriodicTask implements Runnable{
         //save to room
 //        Log.d(String.valueOf(isOnline()), "run: interval");
         inetConnection = isOnline();
-        getData(database);
+//        getData(database);
+
+        RequestQueue queue =
+                VolleySingleton.getInstance(context).getRequestQueue();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, URL, null,
+                new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+//                    jobs[5] = new Job(response.get("name").toString(), "lightsaber", 6);
+//                    recyclerViewAdapter.notifyDataSetChanged();
+                    Log.d("api response", String.valueOf(response.get("0")));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d(error.getMessage(), "onErrorResponse: ");
+            }
+        });
+        VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
+
         handler.postDelayed(this, interval);
     }
 

@@ -23,11 +23,14 @@ public class CoffeeOverviewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.hasFixedSize();            //performance thing
 
+//        retrieve objects from dao
+//        pass into overviewadapter obj
         String dummyString = "This coffee very delicious, make dis every day yes.";
         Coffee[] coffees = new Coffee[20];
         for (int i = 0; i < 20; i++){
             coffees[i] = new Coffee("Coffee " + i, dummyString, "#ffffff", i);
         }
+        // TODO: 06/07/2020 notifyDataSetChanged
 
         recyclerViewAdapter = new CoffeeOverviewAdapter(coffees, this);
         recyclerView.setAdapter(recyclerViewAdapter);
