@@ -1,14 +1,14 @@
 package com.example.koffie_app;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CoffeeIntroductionActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_coffee_introduction);
+        setContentView(R.layout.l_login);
     }
 }
-

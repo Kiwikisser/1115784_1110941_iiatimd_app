@@ -52,7 +52,7 @@ class CoffeeOverviewAdapter extends RecyclerView.Adapter<CoffeeOverviewAdapter.C
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,
-                        CoffeeIntroductionActivity.class);
+                        CoffeeIntroduction.class);
                 context.startActivity(intent);
 
             }
@@ -65,6 +65,7 @@ class CoffeeOverviewAdapter extends RecyclerView.Adapter<CoffeeOverviewAdapter.C
     public void onBindViewHolder(@NonNull CoffeeOverviewViewHolder holder, int position) {
         holder.textViewTitle.setText(coffees[position].getName());
         holder.textViewTitle.setTextColor(Color.parseColor(coffees[position].getColorCode()));
+        holder.textViewDesc.setText(coffees[position].getDescription());
         holder.imageView.setImageResource(R.drawable.dummy_coffee);      // TODO: 05/07/2020 retrieve images
         // from room db
     }
