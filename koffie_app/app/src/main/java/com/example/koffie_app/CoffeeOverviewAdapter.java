@@ -35,7 +35,7 @@ class CoffeeOverviewAdapter extends RecyclerView.Adapter<CoffeeOverviewAdapter.C
             textViewTitle = v.findViewById(R.id.coffeecard_textView);
             textViewTitle.setTypeface(ResourcesCompat.getFont(context, R.font.rock_salt_regular));
             textViewDesc= v.findViewById(R.id.coffeecard_textView_desc);
-            textViewDesc.setTypeface(ResourcesCompat.getFont(context, R.font.rock_salt_regular));
+//            textViewDesc.setTypeface(ResourcesCompat.getFont(context, R.font.rock_salt_regular));
 //            textView.setTextColor(Color.parseColor("#FFFFFF"));
             imageView = v.findViewById(R.id.coffeecard_imageView);
 
