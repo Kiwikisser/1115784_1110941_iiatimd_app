@@ -20,7 +20,7 @@ class CreateRecipeSupplementsTable extends Migration
             $table->double('supplement_amount');
             $table->string('supplement_amount_format')->default('grams');
 
-            $table->foreign('recipe_supplement_id')->references('recipe_id')->on('recipes');
+            $table->foreign('recipe_supplement_id')->references('recipe_id')->on('user_recipes');
             $table->timestamps();
         });
     }
