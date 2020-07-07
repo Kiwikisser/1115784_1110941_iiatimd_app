@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CoffeeIntroductionLast extends AppCompatActivity implements View.OnClickListener{
+public class AppLastIntroductionActivity extends AppCompatActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,15 +26,15 @@ public class CoffeeIntroductionLast extends AppCompatActivity implements View.On
     public void onClick(View v){
         switch(v.getId()){
             case R.id.button_intro_createAccount:
-                Intent toRegisterScreen = new Intent(this, Register.class);
+                Intent toRegisterScreen = new Intent(this, RegisterActivity.class);
                 startActivity(toRegisterScreen);
                 break;
             case R.id.button_intro_login:
-                Intent toLoginScreen = new Intent(this, Login.class);
+                Intent toLoginScreen = new Intent(this, LoginActivity.class);
                 startActivity(toLoginScreen);
                 break;
             case R.id.button_intro_skip:
-                Intent toHomeScreen = new Intent(this, CoffeeOverviewActivity.class); //evt to homepage activity
+                Intent toHomeScreen = new Intent(this, MainActivity.class); //evt to homepage activity
                 startActivity(toHomeScreen);
                 break;
         }

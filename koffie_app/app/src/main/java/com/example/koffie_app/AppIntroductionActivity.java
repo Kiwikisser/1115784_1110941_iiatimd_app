@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class CoffeeIntroduction extends AppCompatActivity implements View.OnClickListener{
+public class AppIntroductionActivity extends AppCompatActivity implements View.OnClickListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -16,7 +16,7 @@ public class CoffeeIntroduction extends AppCompatActivity implements View.OnClic
         startIntroductionButton.setOnClickListener(this);
     }
     public void onClick(View v){
-        Intent toLastIntroductionScreen = new Intent(this, CoffeeIntroductionLast.class);
+        Intent toLastIntroductionScreen = new Intent(this, AppLastIntroductionActivity.class);
         startActivity(toLastIntroductionScreen);
     }
 }
