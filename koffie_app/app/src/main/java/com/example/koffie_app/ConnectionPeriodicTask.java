@@ -98,7 +98,7 @@ public class ConnectionPeriodicTask implements Runnable{
 
 //        List<Coffee> coffeeArray = new ArrayList<Coffee>();
 
-        final Coffee[] coffee = new Coffee[20];
+        final Coffee[] coffee = new Coffee[20];// TODO: 07/07/2020 make arraylist
 
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>() {
@@ -169,9 +169,9 @@ public class ConnectionPeriodicTask implements Runnable{
         return false;
     }
 
-    public void getData(AppRoomDatabase db){
-        if (inetConnection){
-            new Thread(new GetCoffeeTask(db)).start();
-        }
-    }
+//    public void getData(AppRoomDatabase db){
+//        if (inetConnection){
+//            new Thread(new GetCoffeeTask(db)).start();
+//        }
+//    }
 }

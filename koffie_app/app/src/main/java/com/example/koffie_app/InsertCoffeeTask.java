@@ -20,11 +20,11 @@ public class InsertCoffeeTask implements Runnable{
             }
         }
 
-        int size = database.coffeeDAO().getAll().size();
-        String name;
-        for (int i = 0; i < size; i++){
-            name = database.coffeeDAO().getAll().get(i).getName();
-            Log.d( "name: ", name);
-        }
+//        int size = database.coffeeDAO().getAll().length();
+//        String name;
+//        for (int i = 0; i < size; i++){
+//            name = database.coffeeDAO().getAll()[i].getName();
+//            Log.d( "name: ", name);
+//        }
     }
 }

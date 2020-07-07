@@ -11,6 +11,8 @@ import android.os.Handler;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
+    AppRoomDatabase database;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -20,8 +22,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Handler handler = new Handler();
         int connectionIntverval = 20000;
-        AppRoomDatabase db = AppRoomDatabase.getInstance(this.getApplicationContext());
-        handler.post(ConnectionPeriodicTask.getInstance(this, handler, connectionIntverval, db));
+        database = AppRoomDatabase.getInstance(this.getApplicationContext());
+        handler.post(ConnectionPeriodicTask.getInstance(this, handler, connectionIntverval, database));
+
+        GetCoffeeTask getCoffeeTask = new GetCoffeeTask(database);
+        new Thread(getCoffeeTask).start();
     }
 
     public void onClick(View v){

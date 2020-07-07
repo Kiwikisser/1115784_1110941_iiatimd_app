@@ -7,11 +7,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 public class CoffeeOverviewActivity extends AppCompatActivity {
 
     public RecyclerView recyclerView;
     private RecyclerView.Adapter recyclerViewAdapter;
     private RecyclerView.LayoutManager layoutManager;
+    private CoffeeDAO coffeeDAO;
+    private AppRoomDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstances){
@@ -25,14 +32,23 @@ public class CoffeeOverviewActivity extends AppCompatActivity {
 
 //        retrieve objects from dao
 //        pass into overviewadapter obj
-        String dummyString = "This coffee very delicious, make dis every day yes.";
-        Coffee[] coffees = new Coffee[20];
-        for (int i = 0; i < 20; i++){
-            coffees[i] = new Coffee(i, "Coffee " + i, dummyString);
-        }
-        // TODO: 06/07/2020 notifyDataSetChanged
+//        String dummyString = "This coffee very delicious, make dis every day yes.";
+//        Coffee[] coffees = new Coffee[20];
+//        for (int i = 0; i < 20; i++){
+//            coffees[i] = new Coffee(i, "Coffee " + i, dummyString);
+//        }
 
-        recyclerViewAdapter = new CoffeeOverviewAdapter(coffees, this);
+        database = AppRoomDatabase.getInstance(this.getApplicationContext());
+//        GetCoffeeTask getCoffeeTask = new GetCoffeeTask(db);
+//        new Thread(getCoffeeTask).start();
+//        Coffee[] coffee = db.coffeeDAO().getAll();
+
+
+        // what are callables, honestly
+//        ExecutorService executor = Executors.newSingleThreadExecutor();
+//        Future<ArrayList<Coffee>> result = executor.submit();
+
+//        recyclerViewAdapter = new CoffeeOverviewAdapter(coffee, this);
         recyclerView.setAdapter(recyclerViewAdapter);
     }
 }

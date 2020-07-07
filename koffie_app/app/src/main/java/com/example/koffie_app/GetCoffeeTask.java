@@ -5,6 +5,7 @@ import android.util.Log;
 public class GetCoffeeTask implements Runnable {
 
     AppRoomDatabase db;
+    Coffee[] coffee;
 
     public GetCoffeeTask(AppRoomDatabase db){
         this.db = db;
@@ -12,8 +13,12 @@ public class GetCoffeeTask implements Runnable {
 
     @Override
     public void run() {
-        String name = db.coffeeDAO().getAll().get(0).getName();
-        Log.d("run: ", name);
+//        String name = db.coffeeDAO().getAll().get(0).getName();
+//        Log.d("run: ", name);
+        coffee = db.coffeeDAO().getAll();
     }
 
+    public Coffee[] getCoffee() {
+        return coffee;
+    }
 }

@@ -16,11 +16,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 class CoffeeOverviewAdapter extends RecyclerView.Adapter<CoffeeOverviewAdapter.CoffeeOverviewViewHolder> {
 
-    private Coffee[] coffees;
+    private Coffee[] coffee;
     private Context context;
 
-    public CoffeeOverviewAdapter(Coffee[] coffees, Context context){
-        this.coffees = coffees;
+//    public CoffeeOverviewAdapter(Coffee[] coffees, Context context){
+//        this.coffee = coffees;
+//        this.context = context;
+//    }
+
+    public CoffeeOverviewAdapter(Context context){
+//        this.coffee = coffees;
         this.context = context;
     }
 
@@ -63,16 +68,21 @@ class CoffeeOverviewAdapter extends RecyclerView.Adapter<CoffeeOverviewAdapter.C
 
     @Override
     public void onBindViewHolder(@NonNull CoffeeOverviewViewHolder holder, int position) {
-        holder.textViewTitle.setText(coffees[position].getName());
+        holder.textViewTitle.setText(coffee[position].getName());
 //        holder.textViewTitle.setTextColor(Color.parseColor(coffees[position].getColorCode()));
-        holder.textViewDesc.setText(coffees[position].getDescription());
+        holder.textViewDesc.setText(coffee[position].getDescription());
         holder.imageView.setImageResource(R.drawable.dummy_coffee);      // TODO: 05/07/2020 retrieve images
         // from room db
     }
 
     @Override
     public int getItemCount() {
-        return coffees.length;
+        return coffee.length;
+    }
+
+    public void setCoffees(Coffee[] nCoffee){
+        coffee = nCoffee;
+        notifyDataSetChanged();
     }
 
 }
