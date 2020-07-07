@@ -8,10 +8,10 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "coffee_table")
 public class Coffee {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     private int id;
 
     @ColumnInfo
@@ -33,12 +33,12 @@ public class Coffee {
     private String roast;
 
     @ColumnInfo
-    private String prepTime;
+    private int prepTime;
 
 
 
-    public Coffee(int id, String name, String description, String beans, int volume, String roast, String prepTime){
-        this.id = id;
+    public Coffee(String name, String description, String beans, int volume, String roast, int prepTime){
+//        this.id = id;
         this.name = name;
         this.description = description;
 //        this.colorCode = colorCode;
@@ -53,6 +53,10 @@ public class Coffee {
         this.id = id;
         this.name = name;
         this.description = description;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {
@@ -79,7 +83,7 @@ public class Coffee {
         return beans;
     }
 
-    public String getPrepTime() {
+    public int getPrepTime() {
         return prepTime;
     }
 

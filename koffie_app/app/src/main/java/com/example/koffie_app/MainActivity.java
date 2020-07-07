@@ -1,6 +1,8 @@
 package com.example.koffie_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -25,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         database = AppRoomDatabase.getInstance(this.getApplicationContext());
         handler.post(ConnectionPeriodicTask.getInstance(this, handler, connectionIntverval, database));
 
-        GetCoffeeTask getCoffeeTask = new GetCoffeeTask(database);
-        new Thread(getCoffeeTask).start();
+//        GetCoffeeTask getCoffeeTask = new GetCoffeeTask(database);
+//        new Thread(getCoffeeTask).start();
     }
 
     public void onClick(View v){

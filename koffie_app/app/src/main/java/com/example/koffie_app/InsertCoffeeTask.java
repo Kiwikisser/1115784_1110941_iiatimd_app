@@ -16,7 +16,7 @@ public class InsertCoffeeTask implements Runnable{
     public void run() {
         for (int i = 0; i < coffee.length; i++){
             if (coffee[i] != null){
-                database.coffeeDAO().InsertCoffee(coffee[i]);
+                database.coffeeDAO().insert(coffee[i]);
             }
         }
 

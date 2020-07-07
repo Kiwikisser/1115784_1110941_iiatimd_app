@@ -15,7 +15,7 @@ public class GetCoffeeTask implements Runnable {
     public void run() {
 //        String name = db.coffeeDAO().getAll().get(0).getName();
 //        Log.d("run: ", name);
-        coffee = db.coffeeDAO().getAll();
+//        coffee = db.coffeeDAO().getAllCoffee();
     }
 
     public Coffee[] getCoffee() {
