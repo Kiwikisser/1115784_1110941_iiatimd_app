@@ -4,6 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import android.os.Handler;
 
 import com.android.volley.Request;
@@ -92,12 +96,37 @@ public class ConnectionPeriodicTask implements Runnable{
 //            }
 //        });
 
+//        List<Coffee> coffeeArray = new ArrayList<Coffee>();
+
+        final Coffee[] coffee = new Coffee[20];
+
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
                         try {
-                            Log.d("onResponse: ", String.valueOf(response.getJSONObject(0)));
+//                            Log.d("onResponse: ", String.valueOf(response.getJSONObject(0).get
+//                            ("recipe_name")));
+                            for (int i = 0; i < response.length(); i++){
+//                                String id = (String) response.getJSONObject(i).get("recipe_name");
+                                int id = i+1;
+                                String name = (String) response.getJSONObject(i).get("recipe_name");
+                                String description = (String) response.getJSONObject(i).get("recipe_description");
+                                String beans = (String) response.getJSONObject(i).get("coffee_bean");
+                                int volume = (int) response.getJSONObject(i).get("coffee_volume");
+                                String roast = (String) response.getJSONObject(i).get("coffee_roast");
+                                String time = (String) response.getJSONObject(i).get("coffee_prep_time");
+
+                                Coffee coffeeObj = new Coffee(id, name, description, beans, volume, roast, time);
+                                coffee[i] = coffeeObj;
+//                                coffeeArray[i] = appendValue(coffeeArray[0], coffeeObj);
+//                                coffeeArray.add(coffeeObj);
+//                                Log.d("onResponse array: ", String.valueOf(coffeeArray.get(i).getName()));
+                            }
+
+                            Log.d(String.valueOf(coffee[1].getId()), "star tthread: ");
+                            new Thread(new InsertCoffeeTask(database, coffee)).start();
+
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -111,8 +140,19 @@ public class ConnectionPeriodicTask implements Runnable{
 
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
 
+//        Log.d(String.valueOf(coffeeArray.get(0).getName()), "star tthread: ");
+//        new Thread(new InsertCoffeeTask(database, coffeeArray)).start();
+
+        //store
+
         handler.postDelayed(this, 5000);
     }
+
+//    private Coffee[] appendValue(Coffee[] cffe, Coffee newObj) {
+//        ArrayList<Coffee> temp = new ArrayList<Coffee>(Arrays.asList(cffe));
+//        temp.add(newObj);
+//        return (Coffee[]) temp.toArray();
+//    }
 
     public boolean getInetConnection(){
         return inetConnection;

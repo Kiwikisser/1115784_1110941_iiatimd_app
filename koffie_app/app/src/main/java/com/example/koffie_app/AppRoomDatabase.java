@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {Coffee.class}, version = 1)
+@Database(entities = {Coffee.class}, version = 5)
 public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract CoffeeDAO coffeeDAO();
 
@@ -21,6 +21,6 @@ public abstract class AppRoomDatabase extends RoomDatabase {
     }
 
     private static AppRoomDatabase create(final Context context){
-        return Room.databaseBuilder(context, AppRoomDatabase.class, "coffee").fallbackToDestructiveMigration().build();
+        return Room.databaseBuilder(context, AppRoomDatabase.class, "coffeeDatabase").fallbackToDestructiveMigration().build();
     }
 }
