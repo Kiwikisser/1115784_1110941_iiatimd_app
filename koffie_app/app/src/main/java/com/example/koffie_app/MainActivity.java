@@ -1,9 +1,11 @@
 package com.example.koffie_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -18,7 +20,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View v){
-        Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);
+        //Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);
+        Intent toIntroductionScreen = new Intent(this, RecipeCreateActivity.class);
         startActivity(toIntroductionScreen);
     }
 }

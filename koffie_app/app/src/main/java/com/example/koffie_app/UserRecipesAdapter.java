@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class UserRecipesAdapter extends RecyclerView.Adapter<UserRecipesAdapter.UserRecipesViewHolder>{
     private String[] userRecipes;
+    private UserRecipes[] userRecipeslist;
 
     public UserRecipesAdapter (String[] recipes){
         this.userRecipes = recipes;

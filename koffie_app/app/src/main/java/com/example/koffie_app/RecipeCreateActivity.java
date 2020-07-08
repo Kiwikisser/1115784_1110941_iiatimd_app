@@ -22,6 +22,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RecipeCreateActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
@@ -37,7 +38,7 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
         submitRecipeButton.setOnClickListener(this);
 
         Spinner spinner = findViewById(R.id.input_coffeeBean);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.coffeeTypes, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.coffeeTypes, android.R.layout.simple_spinner_item); //evt get coffetypes array from room coffee data
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -93,6 +94,8 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
         return recipeObject;
     }
 
+    private void createUserRecipesForRoom(){} // evt set post object in this function and return it to the thread
+
     @Override
     public void onClick(View v) {
         JSONObject newRecipeData = getRecipeFormData();
@@ -101,7 +104,16 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, POSTURL, newRecipeData, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    //evt post to room db
+                    Log.d("response", response.toString());
+                    //start db, evt set related code into one function
+                    AppRoomDatabase db = AppRoomDatabase.getInstance(getApplicationContext());
+                    try {
+                        String recipe_name = response.getString("recipe_name");
+                        String recipe_ingredients = response.getString("recipe_ingredients");
+                        UserRecipes userRecipes = new UserRecipes(recipe_name, recipe_ingredients, 12223); // uuid needs to be set by the response
+                        // start thread to insert response values
+                        new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
+                    } catch (JSONException e) {}
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -109,6 +121,7 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
                     Log.d("error", error.getMessage());
                 }
             });
+
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
 
             // evt redirect to recipe overview or success page
