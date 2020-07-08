@@ -28,6 +28,7 @@
 
         <activity android:name=".RecipeCreateActivity"/>
         <activity android:name=".UserRecipesOverviewActivity"/>
+        <activity android:name=".CoffeeOverviewActivity"/>
 
         <meta-data
             android:name="preloaded_fonts"

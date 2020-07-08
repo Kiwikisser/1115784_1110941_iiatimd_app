@@ -34,9 +34,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         database = AppRoomDatabase.getInstance(this.getApplicationContext());
 
-
-//        GetCoffeeTask getCoffeeTask = new GetCoffeeTask(database);
-//        new Thread(getCoffeeTask).start();
     }
 
     public void onClick(View v){

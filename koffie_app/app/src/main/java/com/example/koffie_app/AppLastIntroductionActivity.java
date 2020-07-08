@@ -34,7 +34,7 @@ public class AppLastIntroductionActivity extends AppCompatActivity implements Vi
                 startActivity(toLoginScreen);
                 break;
             case R.id.button_intro_skip:
-                Intent toHomeScreen = new Intent(this, MainActivity.class); //evt to homepage activity
+                Intent toHomeScreen = new Intent(this, CoffeeOverviewActivity.class); //evt to homepage activity
                 startActivity(toHomeScreen);
                 break;
         }
