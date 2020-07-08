@@ -3,17 +3,65 @@ package com.example.koffie_app;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
-class Coffee {
-    private String name;
-    private String description;
-    private String colorCode;
-//    private String image = "dezeinfovoorbedankt.jpg";
-//    int resID;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
-    public Coffee(String name, String description, String colorCode){
+@Entity(tableName = "coffee_table")
+public class Coffee {
+    @NonNull
+    @PrimaryKey
+    private String id;
+
+    @ColumnInfo
+    private String name;
+
+    @ColumnInfo
+    private String description;
+
+//    @ColumnInfo
+//    private String colorCode;
+
+    @ColumnInfo
+    private String beans;
+
+    @ColumnInfo
+    private int volume;
+
+    @ColumnInfo
+    private String roast;
+
+    @ColumnInfo
+    private int prepTime;
+
+
+
+    public Coffee(String id, String name, String description, String beans, int volume, String roast, int prepTime){
+        this.id = id;
         this.name = name;
         this.description = description;
-        this.colorCode = colorCode;
+//        this.colorCode = colorCode;
+        this.beans = beans;
+        this.volume = volume;
+        this.roast = roast;
+        this.prepTime = prepTime;
+    }
+
+    @Ignore
+    public Coffee(String id, String name, String description){
+        this.id = id;
+        this.name = name;
+        this.description = description;
+    }
+
+//    public void setId(int id) {
+//        this.id = id;
+//    }
+
+    public String getId() {
+        return id;
     }
 
     public String getName() {
@@ -24,8 +72,24 @@ class Coffee {
         return description;
     }
 
-    public String getColorCode() {
-        return colorCode;
+//    public String getColorCode() {
+//        return colorCode;
+//    }
+
+    public int getVolume() {
+        return volume;
+    }
+
+    public String getBeans() {
+        return beans;
+    }
+
+    public int getPrepTime() {
+        return prepTime;
+    }
+
+    public String getRoast() {
+        return roast;
     }
 
     //    public String getImage() {

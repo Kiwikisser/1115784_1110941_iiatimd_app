@@ -22,22 +22,23 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RecipeCreateActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private final String POSTURL = "http://192.168.56.1:8000/api/recipes/create"; // path to store recipes
+    private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes
     private String coffeebean; // variable for dropdown spinner
-
+    AppRoomDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_recipe_create);
-
+        db = AppRoomDatabase.getInstance(getApplicationContext());
         Button submitRecipeButton = findViewById(R.id.button_submit_recipe);
         submitRecipeButton.setOnClickListener(this);
 
         Spinner spinner = findViewById(R.id.input_coffeeBean);
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.coffeeTypes, android.R.layout.simple_spinner_item);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.coffeeTypes, android.R.layout.simple_spinner_item); //evt get coffetypes array from room coffee data
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
@@ -93,6 +94,8 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
         return recipeObject;
     }
 
+    private void createUserRecipesForRoom(){} // evt set post object in this function and return it to the thread
+
     @Override
     public void onClick(View v) {
         JSONObject newRecipeData = getRecipeFormData();
@@ -101,7 +104,24 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, POSTURL, newRecipeData, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    //evt post to room db
+                    Log.d("response", response.toString());
+
+                    //start db, evt set related code into one function
+
+                    try {
+                        String recipe_id = response.getString("recipe_id");
+                        String username = response.getString("user_name");
+                        String recipe_name = response.getString("recipe_name");
+                        String recipe_ingredients = response.getString("recipe_ingredients");
+                        String coffee_bean = response.getString("coffee_bean");
+                        int coffee_servings = response.getInt("coffee_servings");
+                        int coffee_prep_time = response.getInt("coffee_prep_time");
+                        UserRecipes userRecipes = new UserRecipes(recipe_id, username, recipe_name, recipe_ingredients, coffee_bean, coffee_servings, coffee_prep_time);
+
+                        // start thread to insert response values
+                        new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
+                    } catch (JSONException e) {}
+
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -109,6 +129,7 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
                     Log.d("error", error.getMessage());
                 }
             });
+
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
 
             // evt redirect to recipe overview or success page
