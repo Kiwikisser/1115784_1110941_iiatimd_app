@@ -26,14 +26,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class RecipeCreateActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private final String POSTURL = "http://192.168.56.1:8000/api/recipes/create"; // path to store recipes
+    private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes
     private String coffeebean; // variable for dropdown spinner
-
+    AppRoomDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_recipe_create);
-
+        db = AppRoomDatabase.getInstance(getApplicationContext());
         Button submitRecipeButton = findViewById(R.id.button_submit_recipe);
         submitRecipeButton.setOnClickListener(this);
 
@@ -107,7 +107,7 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
                     Log.d("response", response.toString());
 
                     //start db, evt set related code into one function
-                    AppRoomDatabase db = AppRoomDatabase.getInstance(getApplicationContext());
+
                     try {
                         String recipe_id = response.getString("recipe_id");
                         String username = response.getString("user_name");

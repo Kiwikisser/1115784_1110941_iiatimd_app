@@ -32,7 +32,7 @@ public class ConnectionPeriodicTask implements Runnable{
     private CoffeeViewModel coffeeViewModel;
     private boolean inetConnection;
 
-    private final String URL = "http://192.168.56.1:8000/api/recipes";
+    private final String URL = "http://192.168.178.115:8000/api/recipes";
 
     private ConnectionPeriodicTask(Context ctx, Handler hndlr, int intrvl, CoffeeViewModel coffeeVM){
         context = ctx;
@@ -109,7 +109,7 @@ public class ConnectionPeriodicTask implements Runnable{
 //                            ("recipe_name")));
                             for (int i = 0; i < response.length(); i++){
 //                                String id = (String) response.getJSONObject(i).get("recipe_name");
-                                int id = i+1;
+                                String id = (String) response.getJSONObject(i).get("recipe_id");
                                 String name = (String) response.getJSONObject(i).get("recipe_name");
                                 String description = (String) response.getJSONObject(i).get("recipe_ingredients");
                                 String beans = (String) response.getJSONObject(i).get("coffee_bean");
