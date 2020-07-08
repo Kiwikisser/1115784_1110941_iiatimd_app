@@ -16,7 +16,6 @@ public abstract class AppRoomDatabase extends RoomDatabase {
     public static AppRoomDatabase instance;
 
     //singleton
-
     public static synchronized AppRoomDatabase getInstance(Context context){
         if (instance == null){
             instance = Room.databaseBuilder(context.getApplicationContext(),

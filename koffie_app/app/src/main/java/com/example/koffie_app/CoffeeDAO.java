@@ -14,7 +14,7 @@ import java.util.List;
 @Dao
 public interface CoffeeDAO {
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(Coffee coffee);
 
     @Update(onConflict = OnConflictStrategy.REPLACE)

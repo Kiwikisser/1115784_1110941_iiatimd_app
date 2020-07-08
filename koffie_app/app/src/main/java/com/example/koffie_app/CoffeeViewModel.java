@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -19,6 +20,7 @@ public class CoffeeViewModel extends AndroidViewModel {
     }
 
     public void insert(Coffee coffee){
+        Log.d("insert: ", coffee.getName());
         repository.insert(coffee);
     }
 

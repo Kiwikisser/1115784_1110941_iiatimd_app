@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -14,6 +15,8 @@ import android.os.Handler;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     AppRoomDatabase database;
+    private CoffeeViewModel coffeeViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -22,10 +25,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Button startIntroductionButton = findViewById(R.id.button_startIntroduction);
         startIntroductionButton.setOnClickListener(this);
 
+        coffeeViewModel = ViewModelProviders.of(this).get(CoffeeViewModel.class);
+
         Handler handler = new Handler();
         int connectionIntverval = 20000;
         database = AppRoomDatabase.getInstance(this.getApplicationContext());
-        handler.post(ConnectionPeriodicTask.getInstance(this, handler, connectionIntverval, database));
+        handler.post(ConnectionPeriodicTask.getInstance(this, handler, connectionIntverval, coffeeViewModel));
 
 //        GetCoffeeTask getCoffeeTask = new GetCoffeeTask(database);
 //        new Thread(getCoffeeTask).start();

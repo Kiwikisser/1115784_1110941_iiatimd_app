@@ -29,22 +29,22 @@ public class ConnectionPeriodicTask implements Runnable{
     private Context context;
     private Handler handler;
     private int interval;
-    private AppRoomDatabase database;
+    private CoffeeViewModel coffeeViewModel;
     private boolean inetConnection;
 
     private final String URL = "http://192.168.2.6:8000/api/recipes";
 
-    private ConnectionPeriodicTask(Context ctx, Handler hndlr, int intrvl, AppRoomDatabase db){
+    private ConnectionPeriodicTask(Context ctx, Handler hndlr, int intrvl, CoffeeViewModel coffeeVM){
         context = ctx;
         handler = hndlr;
         interval = intrvl;
-        database = db;
+        coffeeViewModel = coffeeVM;
     }
 
     public static synchronized ConnectionPeriodicTask getInstance(Context ctx, Handler hndlr,
-                                                                  int intrvl, AppRoomDatabase db){
+                                                                  int intrvl, CoffeeViewModel coffeeVM){
         if (instance == null){
-            instance = new ConnectionPeriodicTask(ctx, hndlr, intrvl, db);
+            instance = new ConnectionPeriodicTask(ctx, hndlr, intrvl, coffeeVM);
         }
         return instance;
     }
@@ -118,13 +118,14 @@ public class ConnectionPeriodicTask implements Runnable{
                                 int time = (int) response.getJSONObject(i).get("coffee_prep_time");
 
                                 Coffee coffeeObj = new Coffee(id, name, description, beans, volume, roast, time);
-                                coffee[i] = coffeeObj;
+                                coffeeViewModel.insert(coffeeObj);
+//                                coffee[i] = coffeeObj;
 //                                coffeeArray[i] = appendValue(coffeeArray[0], coffeeObj);
 //                                coffeeArray.add(coffeeObj);
 //                                Log.d("onResponse array: ", String.valueOf(coffeeArray.get(i).getName()));
                             }
 
-                            Log.d(String.valueOf(coffee[1].getId()), "star tthread: ");
+//                            Log.d(String.valueOf(coffee[1].getId()), "star tthread: ");
 //                            new Thread(new InsertCoffeeTask(database, coffee)).start();
 
                         } catch (JSONException e) {
@@ -139,6 +140,7 @@ public class ConnectionPeriodicTask implements Runnable{
         });
 
         VolleySingleton.getInstance(context).addToRequestQueue(jsonObjectRequest);
+
 
 //        Log.d(String.valueOf(coffeeArray.get(0).getName()), "star tthread: ");
 //        new Thread(new InsertCoffeeTask(database, coffeeArray)).start();
