@@ -13,7 +13,7 @@ public class InsertNewUserRecipe implements Runnable{
     @Override
     public void run(){
         db.userRecipesDAO().InsertRecipe(this.user_recipe);
-        String recipe_id = db.userRecipesDAO().getAll().get(0).getRecipeId();
+        /*String recipe_id = db.userRecipesDAO().getAll().get(0).getRecipeId();
         String username = db.userRecipesDAO().getAll().get(0).getUsername();
         String recipe_name = db.userRecipesDAO().getAll().get(0).getRecipeName();
         String recipe_ingredients = db.userRecipesDAO().getAll().get(0).getRecipeIngredients();
@@ -26,6 +26,6 @@ public class InsertNewUserRecipe implements Runnable{
         Log.d("recipe ingredients", recipe_ingredients);
         Log.d("coffee bean is", coffee_bean);
         Log.d("amount of servings", coffee_servings);
-        Log.d("preptime in minutes", coffee_prep_time);
+        Log.d("preptime in minutes", coffee_prep_time);*/
     }
 }
