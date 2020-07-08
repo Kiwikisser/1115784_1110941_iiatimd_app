@@ -2,17 +2,17 @@ package com.example.koffie_app;
 
 import android.content.Context;
 import android.os.AsyncTask;
-
-import androidx.annotation.NonNull;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
+import androidx.annotation.NonNull;
 
-@Database(entities = {Coffee.class}, version = 7)
+
+@Database(entities = {Coffee.class, UserRecipes.class}, version = 1)
 public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract CoffeeDAO coffeeDAO();
-
+    public abstract UserRecipesDAO userRecipesDAO();
     public static AppRoomDatabase instance;
 
     //singleton

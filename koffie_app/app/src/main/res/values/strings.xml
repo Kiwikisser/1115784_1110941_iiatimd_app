@@ -1,11 +1,12 @@
 <resources>
-    <string name="app_name">KoffieApp\nNaam</string>
-
     <!-- Titles -->
+    <string name="app_name">KoffieApp\nNaam</string>
     <string name="header_title">KoffieApp Naam</string>
     <string name="intro_title">Introduction</string>
     <string name="Login_title">Login</string>
     <string name="register_title">Register</string>
+
+    <string name="create_receipt_title">Create Recipe</string>
 
     <!-- Image descriptions -->
     <string name="imgDesc_coffee">A picture of coffee</string>
@@ -18,16 +19,36 @@
     <string name="login_account_button">Login</string>
     <string name="skip_account_button">Skip for now</string>
 
+    <string name="submit_recipe_button">Submit recipe</string>
+
     <!-- Content Values -->
     <string name="intro_c1_content">Learn how to make different kinds of coffee by following our catalog of recipes</string>
-    <string name="intro_c3_content">Make your own coffee mixes, follow your process and get notified of new coffee receipts by making your own account.</string>
+    <string name="intro_c3_content">Make your own coffee recipes, follow your process and get notified of new coffee recipes by making your own account.</string>
     <string name="dummy_description">In a nutshell, it’s made by slowly dripping cold filtered
         water through your fresh grinds for a long period – often 10 hours or more. </string>
 
     <!-- Form Labels -->
-    <string name="form_name">Name</string>
-    <string name="form_email">Email</string>
-    <string name="form_password">Password</string>
-    <string name="form_confirm_password">Confirm Password</string>
+    <string name="form_name">Name:</string>
+    <string name="form_email">Email:</string>
+    <string name="form_password">Password:</string>
+    <string name="form_confirm_password">Confirm Password:</string>
     <string name="form_forgot_password">Forgot Password?</string>
+
+    <string name="form_createRecipe_name">Recipe Name:</string>
+    <string name="form_createRecipe_description">Recipe Description:</string>
+    <string name="form_createRecipe_bean">Coffee Bean:</string>
+    <string name="form_createRecipe_volume">Servings:</string>
+    <string name="form_createRecipe_prepTime">Prep Time:</string>
+    <string name="form_createRecipe_supplements">Recipe Ingredients:</string>
+
+    <string-array name="coffeeTypes">
+        <item>Libero</item>
+        <item>Americano</item>
+        <item>CoffeePad</item>
+    </string-array>
+
+    <string name="form_hint_volume">cups</string>
+    <string name="form_hint_prepTime">min</string>
+    <string name="form_hint_ingredients">1. A cup of milk\n2. A teaspoon of sugar</string>
+    <string name="form_header">New Recipe</string>
 </resources>

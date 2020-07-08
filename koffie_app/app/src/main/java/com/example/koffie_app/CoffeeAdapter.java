@@ -29,7 +29,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context,
-                        CoffeeIntroduction.class);
+                        AppIntroductionActivity.class);
                 context.startActivity(intent);
 
             }

@@ -3,6 +3,7 @@ package com.example.koffie_app;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
@@ -10,9 +11,9 @@ import androidx.room.PrimaryKey;
 
 @Entity(tableName = "coffee_table")
 public class Coffee {
-
+    @NonNull
     @PrimaryKey
-    private int id;
+    private String id;
 
     @ColumnInfo
     private String name;
@@ -37,7 +38,7 @@ public class Coffee {
 
 
 
-    public Coffee(int id, String name, String description, String beans, int volume, String roast, int prepTime){
+    public Coffee(String id, String name, String description, String beans, int volume, String roast, int prepTime){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -49,7 +50,7 @@ public class Coffee {
     }
 
     @Ignore
-    public Coffee(int id, String name, String description){
+    public Coffee(String id, String name, String description){
         this.id = id;
         this.name = name;
         this.description = description;
@@ -59,7 +60,7 @@ public class Coffee {
 //        this.id = id;
 //    }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 

@@ -1,12 +1,14 @@
 package com.example.koffie_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.room.Room;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -26,18 +28,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startIntroductionButton.setOnClickListener(this);
 
         coffeeViewModel = ViewModelProviders.of(this).get(CoffeeViewModel.class);
-
         Handler handler = new Handler();
         int connectionIntverval = 20000;
-        database = AppRoomDatabase.getInstance(this.getApplicationContext());
         handler.post(ConnectionPeriodicTask.getInstance(this, handler, connectionIntverval, coffeeViewModel));
+
+        database = AppRoomDatabase.getInstance(this.getApplicationContext());
+
 
 //        GetCoffeeTask getCoffeeTask = new GetCoffeeTask(database);
 //        new Thread(getCoffeeTask).start();
     }
 
     public void onClick(View v){
-        Intent toIntroductionScreen = new Intent(this, CoffeeIntroduction.class);
+        //Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);
+        Intent toIntroductionScreen = new Intent(this, RecipeCreateActivity.class);
         startActivity(toIntroductionScreen);
     }
 
