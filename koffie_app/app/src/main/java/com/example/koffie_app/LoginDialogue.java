@@ -52,6 +52,7 @@ public class LoginDialogue extends AppCompatDialogFragment {
 
                     }
                 });
+
         editTextUsername = view.findViewById(R.id.edit_username);
         editTextPassword = view.findViewById(R.id.edit_password);
 

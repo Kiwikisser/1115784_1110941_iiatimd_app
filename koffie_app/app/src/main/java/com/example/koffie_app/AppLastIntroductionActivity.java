@@ -30,8 +30,10 @@ public class AppLastIntroductionActivity extends AppCompatActivity implements Vi
                 startActivity(toRegisterScreen);
                 break;
             case R.id.button_intro_login:
-                Intent toLoginScreen = new Intent(this, LoginActivity.class);
-                startActivity(toLoginScreen);
+//                Intent toLoginScreen = new Intent(this, LoginActivity.class);
+//                startActivity(toLoginScreen);
+                LoginDialogue exampleDialogue = new LoginDialogue();
+                exampleDialogue.show(getSupportFragmentManager(), "login dialog");
                 break;
             case R.id.button_intro_skip:
                 Intent toHomeScreen = new Intent(this, CoffeeOverviewActivity.class); //evt to homepage activity
