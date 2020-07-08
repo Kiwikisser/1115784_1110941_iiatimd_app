@@ -105,15 +105,23 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
                 @Override
                 public void onResponse(JSONObject response) {
                     Log.d("response", response.toString());
+
                     //start db, evt set related code into one function
                     AppRoomDatabase db = AppRoomDatabase.getInstance(getApplicationContext());
                     try {
+                        String recipe_id = response.getString("recipe_id");
+                        String username = response.getString("user_name");
                         String recipe_name = response.getString("recipe_name");
                         String recipe_ingredients = response.getString("recipe_ingredients");
-                        UserRecipes userRecipes = new UserRecipes(recipe_name, recipe_ingredients, 12223); // uuid needs to be set by the response
+                        String coffee_bean = response.getString("coffee_bean");
+                        int coffee_servings = response.getInt("coffee_servings");
+                        int coffee_prep_time = response.getInt("coffee_prep_time");
+                        UserRecipes userRecipes = new UserRecipes(recipe_id, username, recipe_name, recipe_ingredients, coffee_bean, coffee_servings, coffee_prep_time);
+
                         // start thread to insert response values
                         new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
                     } catch (JSONException e) {}
+
                 }
             }, new Response.ErrorListener() {
                 @Override

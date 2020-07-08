@@ -1,38 +1,70 @@
 package com.example.koffie_app;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-@Entity
+@Entity(tableName = "user_recipes")
 public class UserRecipes{
-    /*private JSONArray recipe_id;*/
+    @NonNull
+    @PrimaryKey
+    private String recipeId;
+
     @ColumnInfo
     private String username;
+
     @ColumnInfo
-    private String recipe_name;
+    private String recipeName;
 
-    @PrimaryKey
-    private int uuid;
-   /* private String recipe_ingredients;
-    private String coffee_bean;
-    private Integer coffee_servings;
-    private Integer coffee_prep_time;*/
+    @ColumnInfo
+    private String recipeIngredients;
 
-    public UserRecipes(String username, String recipe_name, int uuid){
+    @ColumnInfo
+    private String coffeeBean;
+
+    @ColumnInfo
+    private int coffeeServings;
+
+    @ColumnInfo
+    private int coffeePrepTime;
+
+
+    public UserRecipes(String recipeId, String username, String recipeName, String recipeIngredients, String coffeeBean, int coffeeServings, int coffeePrepTime){
+        this.recipeId = recipeId;
         this.username = username;
-        this.recipe_name = recipe_name;
-        this.uuid = uuid;
+        this.recipeName = recipeName;
+        this.recipeIngredients = recipeIngredients;
+        this.coffeeBean = coffeeBean;
+        this.coffeeServings = coffeeServings;
+        this.coffeePrepTime = coffeePrepTime;
+    }
+
+    public String getRecipeId(){
+        return recipeId;
     }
 
     public String getUsername(){
-        return this.username;
+        return username;
     }
 
-    public String getRecipe_name(){
-        return this.recipe_name;
+    public String getRecipeName(){
+        return recipeName;
     }
-    public int getUuid(){
-        return this.uuid;
+
+    public String getRecipeIngredients(){
+        return recipeIngredients;
+    }
+
+    public String getCoffeeBean(){
+        return coffeeBean;
+    }
+
+    public int getCoffeeServings(){
+        return coffeeServings;
+    }
+
+    public int getCoffeePrepTime(){
+        return coffeePrepTime;
     }
 }
