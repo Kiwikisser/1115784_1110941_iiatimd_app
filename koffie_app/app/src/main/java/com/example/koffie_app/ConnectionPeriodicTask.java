@@ -109,7 +109,7 @@ public class ConnectionPeriodicTask implements Runnable{
 //                            ("recipe_name")));
                             for (int i = 0; i < response.length(); i++){
 //                                String id = (String) response.getJSONObject(i).get("recipe_name");
-//                                int id = i+1;
+                                int id = i+1;
                                 String name = (String) response.getJSONObject(i).get("recipe_name");
                                 String description = (String) response.getJSONObject(i).get("recipe_ingredients");
                                 String beans = (String) response.getJSONObject(i).get("coffee_bean");
@@ -117,7 +117,7 @@ public class ConnectionPeriodicTask implements Runnable{
                                 String roast = "black";
                                 int time = (int) response.getJSONObject(i).get("coffee_prep_time");
 
-                                Coffee coffeeObj = new Coffee(name, description, beans, volume, roast, time);
+                                Coffee coffeeObj = new Coffee(id, name, description, beans, volume, roast, time);
                                 coffee[i] = coffeeObj;
 //                                coffeeArray[i] = appendValue(coffeeArray[0], coffeeObj);
 //                                coffeeArray.add(coffeeObj);
@@ -125,7 +125,7 @@ public class ConnectionPeriodicTask implements Runnable{
                             }
 
                             Log.d(String.valueOf(coffee[1].getId()), "star tthread: ");
-                            new Thread(new InsertCoffeeTask(database, coffee)).start();
+//                            new Thread(new InsertCoffeeTask(database, coffee)).start();
 
                         } catch (JSONException e) {
                             e.printStackTrace();

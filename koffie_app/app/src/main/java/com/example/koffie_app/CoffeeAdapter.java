@@ -22,8 +22,18 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
 
     @NonNull
     @Override
-    public CoffeeHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public CoffeeHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.coffee_overview_card, parent, false);
+        final Context context = parent.getContext();
+        itemView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,
+                        CoffeeIntroduction.class);
+                context.startActivity(intent);
+
+            }
+        });
         return new CoffeeHolder(itemView);
     }
 
@@ -33,6 +43,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
         //put assigners
         holder.textViewTitle.setText(currentCoffee.getName());
         holder.textViewDescription.setText(currentCoffee.getDescription());
+        holder.imageView.setImageResource(R.drawable.dummy_coffee);      // TODO: 05/07/2020 retrieve images
 //        holder.textViewPriority.setText(String.valueOf(currentCoffee.getPriority()));
     }
 

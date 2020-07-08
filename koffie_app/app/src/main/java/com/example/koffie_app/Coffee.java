@@ -11,7 +11,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "coffee_table")
 public class Coffee {
 
-    @PrimaryKey(autoGenerate = true)
+    @PrimaryKey
     private int id;
 
     @ColumnInfo
@@ -37,8 +37,8 @@ public class Coffee {
 
 
 
-    public Coffee(String name, String description, String beans, int volume, String roast, int prepTime){
-//        this.id = id;
+    public Coffee(int id, String name, String description, String beans, int volume, String roast, int prepTime){
+        this.id = id;
         this.name = name;
         this.description = description;
 //        this.colorCode = colorCode;
@@ -55,9 +55,9 @@ public class Coffee {
         this.description = description;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+//    public void setId(int id) {
+//        this.id = id;
+//    }
 
     public int getId() {
         return id;
