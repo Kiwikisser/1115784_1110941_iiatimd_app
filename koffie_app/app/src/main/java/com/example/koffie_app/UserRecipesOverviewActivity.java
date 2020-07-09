@@ -27,9 +27,6 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class UserRecipesOverviewActivity extends AppCompatActivity implements View.OnClickListener {
-//      private RecyclerView recipeRecyclerView;
-//      private RecyclerView.Adapter recipeRecyclerViewAdapter;
-//      private RecyclerView.LayoutManager recipeLayoutManager;
 //      AppRoomDatabase database;
 //      String GETURL = "http://192.168.178.115:8000/api/recipes/mauriccio";
         private UserRecipesViewModel userRecipesViewModel;
