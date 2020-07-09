@@ -1,5 +1,6 @@
 package com.example.koffie_app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,9 +24,7 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_recipe_summary);
-
         Bundle recipeCardViewData = getIntent().getExtras();
-        Log.d("id", recipeCardViewData.getString("recipe_id"));
         db = AppRoomDatabase.getInstance(getApplicationContext());
         textViewTitle = this.findViewById(R.id.recipe_summary_title);
         textViewCoffeeBean = this.findViewById(R.id.recipe_summary_coffeebean);
@@ -47,14 +46,24 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
     }
     public void onClick(View v){
         Bundle recipeCardViewData = getIntent().getExtras();
+
         switch(v.getId()) {
             case R.id.button_edit_recipe:
-                Intent toIntroductionScreen = new Intent(this, RecipeCreateActivity.class); // evt redirect to edit activity
-                startActivity(toIntroductionScreen);
+                Bundle bundleForRecipeEditForm = new Bundle();
+                bundleForRecipeEditForm.putString("title", recipeCardViewData.getString("title"));
+                bundleForRecipeEditForm.putString("recipe_id", recipeCardViewData.getString("recipe_id"));
+                bundleForRecipeEditForm.putString("ingredients", recipeCardViewData.getString("ingredients"));
+                bundleForRecipeEditForm.putString("coffee_bean", recipeCardViewData.getString("coffee_bean"));
+                bundleForRecipeEditForm.putString("servings", recipeCardViewData.getString("servings"));
+                bundleForRecipeEditForm.putString("prep_time", recipeCardViewData.getString("prep_time"));
+
+                Intent toEditRecipeForm = new Intent(this, RecipeEditActivity.class); // evt redirect to edit activity
+                toEditRecipeForm.putExtras(bundleForRecipeEditForm);
+                startActivity(toEditRecipeForm);
                 break;
+
             case R.id.button_delete_recipe:
-                Log.d("deleteaction", "do it"); // evt redirect to edit activity
-                Intent backToRecipesOverview = new Intent(this, UserRecipesOverviewActivity.class); // evt redirect to edit activity
+                Intent backToRecipesOverview = new Intent(this, UserRecipesOverviewActivity.class);
                 startActivity(backToRecipesOverview);
                 userRecipesViewModel = ViewModelProviders.of(this).get(UserRecipesViewModel.class);
                 new Thread(new DeleteRecipeActivity(db,recipeCardViewData.getString("recipe_id"))).start();

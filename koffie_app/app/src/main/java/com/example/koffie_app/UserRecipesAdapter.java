@@ -38,8 +38,8 @@ public class UserRecipesAdapter extends RecyclerView.Adapter<UserRecipesAdapter.
 
                 Bundle bundleForRecipeSummary = new Bundle();
                 bundleForRecipeSummary.putString("title", textViewTitle.getText().toString());
-                bundleForRecipeSummary.putString("ingredients", textViewCoffeeBean.getText().toString());
-                bundleForRecipeSummary.putString("coffee_bean", textViewIngredients.getText().toString());
+                bundleForRecipeSummary.putString("ingredients", textViewIngredients.getText().toString());
+                bundleForRecipeSummary.putString("coffee_bean", textViewCoffeeBean.getText().toString());
                 bundleForRecipeSummary.putString("servings", textViewServings.getText().toString());
                 bundleForRecipeSummary.putString("prep_time", textViewPrepTime.getText().toString());
                 bundleForRecipeSummary.putString("recipe_id", textViewRecipeId.getText().toString());
