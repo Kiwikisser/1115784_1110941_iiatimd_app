@@ -39,9 +39,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void onClick(View v){
-        //Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);
-        //Intent toIntroductionScreen = new Intent(this, RecipeCreateActivity.class);
         Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);
+        //Intent toIntroductionScreen = new Intent(this, RecipeCreateActivity.class);
+        //Intent toIntroductionScreen = new Intent(this, UserRecipeSummaryActivity.class);
         startActivity(toIntroductionScreen);
     }
 

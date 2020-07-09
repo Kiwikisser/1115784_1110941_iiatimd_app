@@ -2,7 +2,9 @@ package com.example.koffie_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.Layout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,8 +21,6 @@ import java.util.List;
 public class UserRecipesAdapter extends RecyclerView.Adapter<UserRecipesAdapter.UserRecipesViewHolder>{
     private List<UserRecipes> userRecipes = new ArrayList<>();
 
-
-
     @NonNull
     @Override
     public UserRecipesViewHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
@@ -28,11 +28,19 @@ public class UserRecipesAdapter extends RecyclerView.Adapter<UserRecipesAdapter.
         final Context context = parent.getContext();
         itemView.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,
-                        MainActivity.class);
-                context.startActivity(intent);
+            public void onClick(View v){
+                TextView textViewTitle = v.findViewById(R.id.userRecipeTitle);
+                TextView textViewDescription= v.findViewById(R.id.userRecipeIngredient);
+                String recipeSummaryTitle = textViewTitle.getText().toString();
+                String recipeSummaryIngredients = textViewDescription.getText().toString();
 
+
+                Bundle bundleForRecipeSummary = new Bundle();
+                bundleForRecipeSummary.putString("title", recipeSummaryTitle);
+                bundleForRecipeSummary.putString("ingredients", recipeSummaryIngredients);
+                Intent intent = new Intent(context, UserRecipeSummaryActivity.class);
+                intent.putExtras(bundleForRecipeSummary);
+                context.startActivity(intent);
             }
         });
         return new UserRecipesViewHolder(itemView);
@@ -43,6 +51,7 @@ public class UserRecipesAdapter extends RecyclerView.Adapter<UserRecipesAdapter.
         UserRecipes currentRecipe = userRecipes.get(position);
         holder.textViewTitle.setText(currentRecipe.getRecipeName());
         holder.textViewDescription.setText(currentRecipe.getRecipeIngredients());
+
     }
 
     @Override
