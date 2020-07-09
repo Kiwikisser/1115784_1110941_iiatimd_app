@@ -20,7 +20,7 @@ public class CoffeeViewModel extends AndroidViewModel {
     }
 
     public void insert(Coffee coffee){
-        Log.d("insert: ", coffee.getName());
+        //Log.d("insert: ", coffee.getName());
         repository.insert(coffee);
     }
 

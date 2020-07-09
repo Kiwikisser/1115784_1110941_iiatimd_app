@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -18,50 +21,33 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 public class UserRecipesOverviewActivity extends AppCompatActivity {
-    private RecyclerView recipeRecyclerView;
-    private RecyclerView.Adapter recipeRecyclerViewAdapter;
-    private RecyclerView.LayoutManager recipeLayoutManager;
+//      private RecyclerView recipeRecyclerView;
+//      private RecyclerView.Adapter recipeRecyclerViewAdapter;
+//      private RecyclerView.LayoutManager recipeLayoutManager;
+//      AppRoomDatabase database;
+//      String GETURL = "http://192.168.178.115:8000/api/recipes/mauriccio";
+        private UserRecipesViewModel userRecipesViewModel;
+        @Override
+        protected void onCreate(Bundle savedInstanceState){
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.l_user_recipe_recyclerview);
+            // get code to display cards, should get data from local database instead
+            RecyclerView recyclerView = findViewById(R.id.user_recipes_recyclerView);
+            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            recyclerView.setHasFixedSize(true);
 
-    String recipeTitles[];
-    String GETURL = "http://192.168.56.1:8000/api/recipes/mipanamiguel";
-    @Override
-    protected void onCreate(Bundle savedInstanceState){
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.l_user_recipe_recyclerview);
-        RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+            final UserRecipesAdapter adapter = new UserRecipesAdapter();  //here
+            recyclerView.setAdapter(adapter);
 
-        // get code to display cards, should get data from local database instead
-
-        /*recipeRecyclerView = findViewById(R.id.user_recipes_recyclerView);
-        recipeLayoutManager = new LinearLayoutManager(this);
-        recipeRecyclerView.setLayoutManager(recipeLayoutManager);
-        //recipeRecyclerView.hasFixedSize();  //evt verwijderen door n hoeveelheid items, kan performance kosten
-
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, GETURL, null, new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray response) {
-                //evt post to room db
-                recipeTitles = new String[response.length()];
-                for(int i =0; i< response.length();i++){
-                    try {
-                        recipeTitles[i] = response.getJSONObject(i).getString("recipe_name");
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+            userRecipesViewModel = ViewModelProviders.of(this).get(UserRecipesViewModel.class);
+            userRecipesViewModel.getAllRecipes().observe(this, new Observer<List<UserRecipes>>() {
+                @Override
+                public void onChanged(List<UserRecipes> userRecipes) {
+                    adapter.setUserRecipe(userRecipes);
                 }
-                Log.d("recipes", recipeTitles.toString());
-                recipeRecyclerViewAdapter = new UserRecipesAdapter(recipeTitles);
-                recipeRecyclerView.setAdapter(recipeRecyclerViewAdapter);
-                recipeRecyclerViewAdapter.notifyDataSetChanged();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Log.d("error", error.getMessage());
-            }
-        });
-        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);*/
+            });
     }
 }

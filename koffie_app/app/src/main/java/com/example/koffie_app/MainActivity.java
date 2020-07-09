@@ -18,8 +18,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     AppRoomDatabase database;
     private CoffeeViewModel coffeeViewModel;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -28,11 +26,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         startIntroductionButton.setOnClickListener(this);
 
         coffeeViewModel = ViewModelProviders.of(this).get(CoffeeViewModel.class);
+
         Handler handler = new Handler();
         int connectionIntverval = 20000;
         handler.post(ConnectionPeriodicTask.getInstance(this, handler, connectionIntverval, coffeeViewModel));
 
-        database = AppRoomDatabase.getInstance(this.getApplicationContext());
+
 
 
 //        GetCoffeeTask getCoffeeTask = new GetCoffeeTask(database);
@@ -42,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v){
         //Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);
         //Intent toIntroductionScreen = new Intent(this, RecipeCreateActivity.class);
-        Intent toIntroductionScreen = new Intent(this, AppIntroductionActivity.class);
+        Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);
         startActivity(toIntroductionScreen);
     }
 

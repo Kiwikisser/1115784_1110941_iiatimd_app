@@ -13,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,6 +29,7 @@ import org.json.JSONObject;
 public class RecipeCreateActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes
     private String coffeebean; // variable for dropdown spinner
+    private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -36,6 +38,7 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
         db = AppRoomDatabase.getInstance(getApplicationContext());
         Button submitRecipeButton = findViewById(R.id.button_submit_recipe);
         submitRecipeButton.setOnClickListener(this);
+        userRecipesViewModel = ViewModelProviders.of(this).get(UserRecipesViewModel.class);
 
         Spinner spinner = findViewById(R.id.input_coffeeBean);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.coffeeTypes, android.R.layout.simple_spinner_item); //evt get coffetypes array from room coffee data
@@ -104,8 +107,6 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, POSTURL, newRecipeData, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    Log.d("response", response.toString());
-
                     //start db, evt set related code into one function
 
                     try {
@@ -120,6 +121,7 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
 
                         // start thread to insert response values
                         new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
+                        userRecipesViewModel.insert(userRecipes);
                     } catch (JSONException e) {}
 
                 }
@@ -131,9 +133,9 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
             });
 
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
-
+            userRecipesViewModel.getAllRecipes();
             // evt redirect to recipe overview or success page
-            Intent toIntroductionScreen = new Intent(this, MainActivity.class);
+            Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);
             startActivity(toIntroductionScreen);
         }
     }

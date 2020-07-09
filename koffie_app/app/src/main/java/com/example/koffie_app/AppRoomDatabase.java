@@ -9,7 +9,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.annotation.NonNull;
 
 
-@Database(entities = {Coffee.class, UserRecipes.class}, version = 1)
+@Database(entities = {Coffee.class, UserRecipes.class}, version = 2)
 public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract CoffeeDAO coffeeDAO();
     public abstract UserRecipesDAO userRecipesDAO();
