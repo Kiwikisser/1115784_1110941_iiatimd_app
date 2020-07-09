@@ -1,7 +1,10 @@
 package com.example.koffie_app;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
@@ -23,7 +26,7 @@ import org.json.JSONObject;
 
 import java.util.List;
 
-public class UserRecipesOverviewActivity extends AppCompatActivity {
+public class UserRecipesOverviewActivity extends AppCompatActivity implements View.OnClickListener {
 //      private RecyclerView recipeRecyclerView;
 //      private RecyclerView.Adapter recipeRecyclerViewAdapter;
 //      private RecyclerView.LayoutManager recipeLayoutManager;
@@ -39,6 +42,8 @@ public class UserRecipesOverviewActivity extends AppCompatActivity {
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             recyclerView.setHasFixedSize(true);
 
+            Button createRecipeRedirectButton = findViewById(R.id.button_recipe_overview_add);
+            createRecipeRedirectButton.setOnClickListener(this);
             final UserRecipesAdapter adapter = new UserRecipesAdapter();  //here
             recyclerView.setAdapter(adapter);
 
@@ -49,5 +54,9 @@ public class UserRecipesOverviewActivity extends AppCompatActivity {
                     adapter.setUserRecipe(userRecipes);
                 }
             });
+        }
+    public void onClick(View v){
+        Intent toIntroductionScreen = new Intent(this, RecipeCreateActivity.class);
+        startActivity(toIntroductionScreen);
     }
 }
