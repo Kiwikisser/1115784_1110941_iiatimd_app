@@ -33,7 +33,7 @@ import java.util.UUID;
 import static java.lang.Integer.parseInt;
 
 public class RecipeEditActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes, evt laravel online gooien ergens?
+    private final String POSTURL = "http://192.168.178.115:8000/api/recipes/update"; // path to store recipes, evt laravel online gooien ergens?
     private String coffeebean; // variable for dropdown spinner value in form
     private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;
@@ -108,6 +108,8 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
             recipePrepTimeField.setError( "Value required!");
             return null;
         }
+        Bundle recipeSummaryData = getIntent().getExtras();
+        String recipeId = recipeSummaryData.getString("recipe_id");
         String currentUsername = "tito"; // example, evt username getten && default username if user is not logged in
         String recipeName = recipeNameField.getText().toString();
         String recipeIngredients = recipeIngredientField.getText().toString();
@@ -115,6 +117,7 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
         String recipePrepTime = recipePrepTimeField.getText().toString();
         JSONObject recipeObject = new JSONObject();
         try{
+            recipeObject.put("recipeId", recipeId);
             recipeObject.put("user_name", currentUsername);
             recipeObject.put("recipe_name", recipeName);
             recipeObject.put("recipe_ingredients", recipeIngredients);
@@ -123,6 +126,7 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
             recipeObject.put("coffee_prep_time", recipePrepTime);
         }
         catch(Exception e){}
+        Log.d("sentObject", recipeObject.toString());
         return recipeObject;
     }
 
@@ -130,11 +134,11 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         final JSONObject newRecipeData = getRecipeFormData();
         if(newRecipeData != null){
+            
             RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, POSTURL, newRecipeData, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
-                    // connection, get response from laravel (+ generated id) add make&add an user recipe with the response data
                     try {
                         String recipe_id = response.getString("recipe_id");
                         String username = response.getString("user_name");
@@ -144,9 +148,7 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
                         int coffee_servings = response.getInt("coffee_servings");
                         int coffee_prep_time = response.getInt("coffee_prep_time");
                         UserRecipes userRecipes = new UserRecipes(recipe_id, username, recipe_name, recipe_ingredients, coffee_bean, coffee_servings, coffee_prep_time);
-
-                        // start thread to insert response values
-                        //new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
+                        // instead of inserting user recipe value UPDATE existing user recipe
                         userRecipesViewModel.insert(userRecipes);
                     } catch (JSONException e) {}
 
@@ -155,7 +157,7 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void onErrorResponse(VolleyError error) {
                     try {
-                        // no connection, locally add recipe to room
+                        // no connection, locally edit recipe to room
                         String generated_recipe_id = UUID.randomUUID().toString().substring(0,9); // generate string id length 8 with a - at the end
                         UserRecipes userRecipes = new UserRecipes(generated_recipe_id, "mauriccio", newRecipeData.getString("recipe_name"), newRecipeData.getString("recipe_ingredients"),
                                 newRecipeData.getString("coffee_bean"), newRecipeData.getInt("coffee_servings"), newRecipeData.getInt("coffee_prep_time"));

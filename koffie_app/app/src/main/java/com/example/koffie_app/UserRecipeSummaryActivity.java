@@ -11,12 +11,23 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class UserRecipeSummaryActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView textViewTitle;
     private TextView textViewCoffeeBean;
     private TextView textViewIngredients;
     private TextView textViewCoffeeServings;
     private TextView textViewCoffeePrepTime;
+    final String DELETEPOSTURL = "http://192.168.178.115:8000/api/recipes/delete";
 
     private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;
@@ -66,6 +77,18 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
                 Intent backToRecipesOverview = new Intent(this, UserRecipesOverviewActivity.class);
                 startActivity(backToRecipesOverview);
                 userRecipesViewModel = ViewModelProviders.of(this).get(UserRecipesViewModel.class);
+
+                JSONObject toDeleteObject = new JSONObject();
+                try { toDeleteObject.put("recipeId",recipeCardViewData.getString("recipe_id")); } catch (JSONException e) {}
+                RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+                JsonObjectRequest jsonObjectRequest  = new JsonObjectRequest(Request.Method.POST, DELETEPOSTURL, toDeleteObject ,new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {}
+                }, new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){}
+                });
+                VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
                 new Thread(new DeleteRecipeActivity(db,recipeCardViewData.getString("recipe_id"))).start();
                 break;
         }
