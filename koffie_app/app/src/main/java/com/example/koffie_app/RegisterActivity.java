@@ -96,7 +96,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         Log.d("response", response.toString());
 
                         try {
-                            String token = response.getString("token");
+                            String token = response.getString("access_token");
 
                             setCredentials(username, email, password);
                             assignToken(token);
