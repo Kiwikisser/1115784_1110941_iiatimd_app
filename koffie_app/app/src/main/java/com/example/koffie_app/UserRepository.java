@@ -8,11 +8,12 @@ import android.util.Log;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class UserRepository implements AsyncResponse{
     private UserDAO userDAO;
     private LiveData<List<User>> allUsers;
-    private static User loginUser;
+    private User loginUser;
 
     public UserRepository(Application application){
         AppRoomDatabase database = AppRoomDatabase.getInstance(application);
@@ -41,10 +42,13 @@ public class UserRepository implements AsyncResponse{
         return allUsers;
     }
 
-    public void findUserByNameAndPass(String uname, String pword){
+    public User findUserByNameAndPass(String uname, String pword) throws ExecutionException, InterruptedException {
+        Log.d("findUser before: ", String.valueOf(loginUser));
         MyAsyncTask asyncTask =new MyAsyncTask(userDAO, uname, pword);
         asyncTask.delegate = this;
-        asyncTask.execute();
+        User user = asyncTask.execute().get();
+        Log.d("async: ", "executed");
+        return user;
     }
 
     @Override
@@ -52,6 +56,8 @@ public class UserRepository implements AsyncResponse{
         //Here you will receive the result fired from async class
         //of onPostExecute(result) method.
         Log.d("processFinish: ", "output " + output.getUsername());
+        loginUser = output;
+        Log.d("findUser after: ", String.valueOf(loginUser));
     }
 
     public class MyAsyncTask extends AsyncTask<User, Void, User> {

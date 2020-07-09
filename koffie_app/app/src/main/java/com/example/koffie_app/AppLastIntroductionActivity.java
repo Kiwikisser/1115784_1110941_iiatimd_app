@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class AppLastIntroductionActivity extends AppCompatActivity implements View.OnClickListener, LoginDialogue.LoginDialogueListener{
 
@@ -52,10 +53,12 @@ public class AppLastIntroductionActivity extends AppCompatActivity implements Vi
     }
 
     @Override
-    public void retrieveTexts(String uname, String pword) {
+    public void retrieveTexts(String uname, String pword) throws ExecutionException, InterruptedException {
         // call login instance
 //        String username = UserAuthentication.getInstance(this).getUsername();
 //        String password = UserAuthentication.getInstance(this).getPassword();
+
+        Log.d( "retrieveTexts: ", String.valueOf(userAuthentication.getAllUsers()));
 
         Log.d("retrieveTexts: ", String.valueOf(uname + pword));
 

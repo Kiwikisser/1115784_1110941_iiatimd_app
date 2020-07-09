@@ -14,6 +14,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import java.util.concurrent.ExecutionException;
+
 public class LoginDialogue extends AppCompatDialogFragment {
     private EditText editTextUsername;
     private EditText editTextPassword;
@@ -53,7 +55,13 @@ public class LoginDialogue extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String username = editTextUsername.getText().toString();
                         String password = editTextPassword.getText().toString();
-                        listener.retrieveTexts(username, password);
+                        try {
+                            listener.retrieveTexts(username, password);
+                        } catch (ExecutionException e) {
+                            e.printStackTrace();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
 
@@ -75,6 +83,6 @@ public class LoginDialogue extends AppCompatDialogFragment {
     }
 
     public interface LoginDialogueListener{
-        void retrieveTexts(String username, String password);
+        void retrieveTexts(String username, String password) throws ExecutionException, InterruptedException;
     }
 }

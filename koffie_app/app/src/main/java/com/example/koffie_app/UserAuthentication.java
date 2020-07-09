@@ -9,6 +9,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class UserAuthentication extends AndroidViewModel {
 
@@ -65,10 +66,11 @@ public class UserAuthentication extends AndroidViewModel {
         return allUsers;
     }
 
-    public void findUserByNameAndPass(String uname, String pword){
+    public User findUserByNameAndPass(String uname, String pword) throws ExecutionException, InterruptedException {
         Log.d("findUserByNameAndPass: ", String.valueOf(uname + pword));
-//        Log.d("found: ", String.valueOf(repository.findUserByNameAndPass(uname, pword)));
-        repository.findUserByNameAndPass(uname, pword);
+        Log.d("found: ", String.valueOf(repository.findUserByNameAndPass(uname, pword)));
+//        repository.findUserByNameAndPass(uname, pword);
+        return repository.findUserByNameAndPass(uname, pword);
     }
 
 //    public void setUsername(String username) {

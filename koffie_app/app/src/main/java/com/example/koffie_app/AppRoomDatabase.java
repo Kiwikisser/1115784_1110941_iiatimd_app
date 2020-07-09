@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import androidx.annotation.NonNull;
 
 
-@Database(entities = {Coffee.class, UserRecipes.class, User.class}, version = 4)
+@Database(entities = {Coffee.class, UserRecipes.class, User.class}, version = 5)
 public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract CoffeeDAO coffeeDAO();
     public abstract UserRecipesDAO userRecipesDAO();
@@ -53,7 +53,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
 //            coffeeDao.insert(new Coffee("white", "super white coffee", 2));
 //            coffeeDao.insert(new Coffee("green", "super green coffee", 3));
             //testing account:\
-            userDAO.insert(new User("a", "a", "2222"));
+            userDAO.insert(new User("a", "a", "2222", ""));
             return null;
         }
     }
