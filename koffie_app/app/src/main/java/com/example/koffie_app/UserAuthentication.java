@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import android.content.Context;
+import android.util.Log;
 
 public class UserAuthentication {
 
@@ -26,22 +27,27 @@ public class UserAuthentication {
     }
 
     public void setUsername(String username) {
+        Log.d("setUsername: ", String.valueOf(username));
         this.username = username;
     }
 
     public void setEmail(String email) {
+        Log.d("setEmail: ", String.valueOf(email));
         this.email = email;
     }
 
     public void setPassword(String password) {
+        Log.d("setPassword: ", String.valueOf(password));
         this.password = password;
     }
 
     public void setToken(String token) {
+        Log.d("setToken: ", String.valueOf(token));
         this.token = token;
     }
 
     public void setAuthenticated(boolean authenticated) {
+        Log.d("setAuthenticated: ", String.valueOf(authenticated));
         isAuthenticated = authenticated;
     }
 

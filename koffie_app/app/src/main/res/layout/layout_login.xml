@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/title_login"
         android:layout_marginTop="38dp"
-        android:hint="Username"
+        android:hint="Email"
         android:textColor="#FFFCFC"
         android:textColorHint="#423A3A" />
 
