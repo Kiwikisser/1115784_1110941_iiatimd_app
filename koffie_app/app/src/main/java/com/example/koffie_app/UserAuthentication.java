@@ -2,6 +2,7 @@ package com.example.koffie_app;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -22,11 +23,13 @@ public class UserAuthentication extends AndroidViewModel {
 
     private UserRepository repository;
     private LiveData<List<User>> allUsers;
+    private User loginUser;
 
     public UserAuthentication(@NonNull Application application) {
         super(application);
         repository = new UserRepository(application);
         allUsers = repository.getAllUsers();        // not required for anything yet.
+//        loginUser = repository.findUserByNameAndPass();
     }
 
 //    private UserAuthentication(Context ctx) {
@@ -42,6 +45,7 @@ public class UserAuthentication extends AndroidViewModel {
 //    }
 
     public void insert(User user){
+        Log.d("insert user ", user.getUsername());
         repository.insert(user);
     }
 
@@ -59,6 +63,12 @@ public class UserAuthentication extends AndroidViewModel {
 
     public LiveData<List<User>> getAllUsers(){
         return allUsers;
+    }
+
+    public void findUserByNameAndPass(String uname, String pword){
+        Log.d("findUserByNameAndPass: ", String.valueOf(uname + pword));
+//        Log.d("found: ", String.valueOf(repository.findUserByNameAndPass(uname, pword)));
+        repository.findUserByNameAndPass(uname, pword);
     }
 
 //    public void setUsername(String username) {

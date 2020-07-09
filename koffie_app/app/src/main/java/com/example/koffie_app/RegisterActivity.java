@@ -57,19 +57,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         return userObject;
     }
 
-    private void setCredentials(String username, String email, String password){
-        UserAuthentication.getInstance(this).setUsername(username);
-        UserAuthentication.getInstance(this).setEmail(email);
-        UserAuthentication.getInstance(this).setPassword(password);
-    }
+//    private void setCredentials(String username, String email, String password){
+//        UserAuthentication.getInstance(this).setUsername(username);
+//        UserAuthentication.getInstance(this).setEmail(email);
+//        UserAuthentication.getInstance(this).setPassword(password);
+//    }
 
-    private void assignToken(String token){
-        UserAuthentication.getInstance(this).setToken(token);
-    }
+//    private void assignToken(String token){
+//        UserAuthentication.getInstance(this).setToken(token);
+//    }
 
-    private void logIn(){
-        UserAuthentication.getInstance(this).setAuthenticated(true);
-    }
+//    private void logIn(){
+//        UserAuthentication.getInstance(this).setAuthenticated(true);
+//    }
 
     @Override
     public void onClick(View v) {
@@ -98,9 +98,9 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         try {
                             String token = response.getString("access_token");
 
-                            setCredentials(username, email, password);
-                            assignToken(token);
-                            logIn();
+//                            setCredentials(username, email, password);
+//                            assignToken(token);
+//                            logIn();
                         } catch (JSONException e) {
                             Log.d("onResponse: ", String.valueOf(e));
                         }

@@ -27,4 +27,7 @@ public interface UserDAO {
 
     @Query("SELECT * FROM user_table")
     LiveData<List<User>> getAllUsers();
+
+    @Query("SELECT * FROM user_table WHERE username= :name AND password= :pass")
+    public User findUserByNameAndPass(String name, String pass);
 }

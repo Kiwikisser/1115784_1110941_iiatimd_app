@@ -2,14 +2,17 @@ package com.example.koffie_app;
 
 import android.app.Application;
 import android.os.AsyncTask;
+import android.text.SpanWatcher;
+import android.util.Log;
 
 import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class UserRepository {
+public class UserRepository implements AsyncResponse{
     private UserDAO userDAO;
     private LiveData<List<User>> allUsers;
+    private static User loginUser;
 
     public UserRepository(Application application){
         AppRoomDatabase database = AppRoomDatabase.getInstance(application);
@@ -18,6 +21,7 @@ public class UserRepository {
     }
 
     public void insert(User user){
+        Log.d( "inserted: ", String.valueOf(user));
         new InsertUserAsyncTask(userDAO).execute(user);
     }
 
@@ -29,13 +33,68 @@ public class UserRepository {
         new DeleteUserAsyncTask(userDAO).execute(user);
     }
 
-    public void deleteAllUsers( ){
+    public void deleteAllUsers(){
         new DeleteAllUsersAsyncTask(userDAO).execute();
     }
 
     public LiveData<List<User>> getAllUsers(){
         return allUsers;
     }
+
+    public void findUserByNameAndPass(String uname, String pword){
+        MyAsyncTask asyncTask =new MyAsyncTask(userDAO, uname, pword);
+        asyncTask.delegate = this;
+        asyncTask.execute();
+    }
+
+    @Override
+    public void processFinish(User output) {
+        //Here you will receive the result fired from async class
+        //of onPostExecute(result) method.
+        Log.d("processFinish: ", "output " + output.getUsername());
+    }
+
+    public class MyAsyncTask extends AsyncTask<User, Void, User> {
+        public AsyncResponse delegate = null;
+        private UserDAO userDAO;
+        private String username;
+        private String password;
+
+        private MyAsyncTask(UserDAO userDAO, String uname, String pword){
+            this.userDAO = userDAO;
+            this.username = uname;
+            this.password = pword;
+        }
+
+        @Override
+        protected User doInBackground(User... users) {
+            User user = userDAO.findUserByNameAndPass(username, password);
+            return user;
+        }
+
+        @Override
+        protected void onPostExecute(User result) {
+            // query here?
+            delegate.processFinish(result);
+        }
+    }
+
+//    public User findUserByNameAndPass(){
+////        new FindUserAsyncTask(userDAO).execute();
+////        return loginUser;
+//        FindUserAsyncTask findUserAsyncTask = (FindUserAsyncTask) new FindUserAsyncTask(userDAO, new FindUserAsyncTask.UserAsyncResponse(){
+//            @Override
+//            public void processFinish(User output) {
+//                loginUser = output;
+//            }
+//        }, loginUser).execute();
+//        return loginUser;
+//    }
+
+//    public User findUserByNameAndPass(String uname, String pword){
+//        new FindUserAsyncTask(userDAO, uname, pword).execute();
+//        return loginUser;
+//    }
 
     private static class InsertUserAsyncTask extends AsyncTask<User, Void, Void> {
         private UserDAO userDAO;
@@ -92,4 +151,81 @@ public class UserRepository {
             return null;
         }
     }
+
+
+        // returns index out of bounds
+//    private static class FindUserAsyncTask extends AsyncTask<User, Void, Void>{
+//        private UserDAO userDAO;
+//        private String username;
+//        private String password;
+//
+//        private FindUserAsyncTask(UserDAO userDAO, String uname, String pword){
+//            this.userDAO = userDAO;
+//            this.username = uname;
+//            this.password = pword;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(User... users) {
+//            loginUser = userDAO.findUserByNameAndPass(users[0].getUsername(), users[0].getPassword());
+//            return null;
+//        }
+//    }
+
+//    private class FindUserAsyncTask extends AsyncTask<User, User, User> {
+//        private UserDAO userDAO;
+//        private User user;
+//
+//        private FindUserAsyncTask(UserDAO userDAO, User user){
+//            this.userDAO = userDAO;
+//            this.user = user;
+//        }
+//
+//        @Override
+//        protected User doInBackground(User... users) {
+//            loginUser = userDAO.findUserByNameAndPass(users[0].getUsername(), users[0].getPassword());
+//            return user;
+//        }
+//    }
+
+//    private class FindUserAsyncTask extends AsyncTask<User, Void, Void> {
+//        private UserDAO userDAO;
+//
+//        private FindUserAsyncTask(UserDAO userDAO){
+//            this.userDAO = userDAO;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(User... users) {
+//            loginUser = userDAO.findUserByNameAndPass(users[0].getUsername(), users[0].getPassword());
+//        }
+//    }
+
+//    public static class FindUserAsyncTask extends AsyncTask<User, Void, User> {
+//        private UserDAO userDAO;
+//        private User retrievedUser;
+//
+//        public interface UserAsyncResponse {
+//            void processFinish(User output);
+//        }
+//
+//        public UserAsyncResponse delegate = null;
+//
+//        public FindUserAsyncTask(UserDAO userDAO, UserAsyncResponse delegate, User user){
+//            this.userDAO = userDAO;
+//            this.delegate = delegate;
+//            this.retrievedUser = user;
+//        }
+//
+//        @Override
+//        protected User doInBackground(User... users) {
+//            retrievedUser = userDAO.findUserByNameAndPass(users[0].getUsername(), users[0].getPassword());
+//            return null;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(User result) {
+//            delegate.processFinish(result);
+//        }
+//    }
 }
