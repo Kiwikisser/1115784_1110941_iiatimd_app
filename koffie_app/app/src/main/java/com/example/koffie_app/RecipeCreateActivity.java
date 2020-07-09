@@ -1,5 +1,6 @@
 package com.example.koffie_app;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -25,8 +27,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class RecipeCreateActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes
+//    private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes
+    private final String POSTURL = "http://192.168.2.6:8000/api/recipes/create"; // path to store recipes
     private String coffeebean; // variable for dropdown spinner
     AppRoomDatabase db;
     @Override
@@ -96,6 +102,10 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
 
     private void createUserRecipesForRoom(){} // evt set post object in this function and return it to the thread
 
+    private String getToken(){
+        return UserAuthentication.getInstance(this).getToken();
+    }
+
     @Override
     public void onClick(View v) {
         JSONObject newRecipeData = getRecipeFormData();
@@ -119,16 +129,30 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
                         UserRecipes userRecipes = new UserRecipes(recipe_id, username, recipe_name, recipe_ingredients, coffee_bean, coffee_servings, coffee_prep_time);
 
                         // start thread to insert response values
-                        new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
-                    } catch (JSONException e) {}
+//                        new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
+
+                    } catch (JSONException e) {
+                        Log.d("onResponse: ", String.valueOf(e));
+                    }
 
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Log.d("error", error.getMessage());
+                    Log.d("error", String.valueOf(error));
                 }
-            });
+            })
+            {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    String authValue = "Bearer " + getToken();
+                    params.put("Authorization", authValue);
+                    params.put("Accept", "application/json; charset=UTF-8");
+                    params.put("Content-Type", "application/json");
+                    return params;
+                };
+            };
 
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
 
