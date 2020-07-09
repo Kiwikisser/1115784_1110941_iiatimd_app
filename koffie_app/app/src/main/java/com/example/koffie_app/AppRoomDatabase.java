@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 public abstract class AppRoomDatabase extends RoomDatabase {
     public abstract CoffeeDAO coffeeDAO();
     public abstract UserRecipesDAO userRecipesDAO();
+    public abstract UserDAO userDAO();
     public static AppRoomDatabase instance;
 
     //singleton
@@ -28,7 +29,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PupulateDbAsyncTask(instance).execute();
+            new PupulateDbAsyncTask(instance).execute();            // unnecessary, I think.
         }
     };
 
