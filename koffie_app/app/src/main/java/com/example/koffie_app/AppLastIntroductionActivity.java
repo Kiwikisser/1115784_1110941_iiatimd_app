@@ -48,7 +48,7 @@ public class AppLastIntroductionActivity extends AppCompatActivity implements Vi
         String username = UserAuthentication.getInstance(this).getUsername();
         String password = UserAuthentication.getInstance(this).getPassword();
 
-        if (username == uname && password == pword){
+        if (username.equals(uname) && password.equals(pword)){
             // TODO: RETURN USER TO HOME
             Intent toMainScreen = new Intent(this, MainActivity.class);
             startActivity(toMainScreen);

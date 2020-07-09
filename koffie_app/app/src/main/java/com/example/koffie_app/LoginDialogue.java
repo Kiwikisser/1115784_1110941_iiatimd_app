@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
@@ -41,6 +42,9 @@ public class LoginDialogue extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.layout_login, null);
 
+        editTextUsername = view.findViewById(R.id.edit_username);
+        editTextPassword = view.findViewById(R.id.edit_password);
+
         builder.setView(view).setTitle("Login")
                 .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
@@ -53,12 +57,10 @@ public class LoginDialogue extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                         String username = editTextUsername.getText().toString();
                         String password = editTextPassword.getText().toString();
+                        Log.d( "onClick: ", (username + password));
                         listener.retrieveTexts(username, password);
                     }
                 });
-
-        editTextUsername = view.findViewById(R.id.edit_username);
-        editTextPassword = view.findViewById(R.id.edit_password);
 
         return builder.create();
     }

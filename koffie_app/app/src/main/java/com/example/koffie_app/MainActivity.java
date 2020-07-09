@@ -34,6 +34,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         database = AppRoomDatabase.getInstance(this.getApplicationContext());
 
+        UserAuthentication.getInstance(this).setUsername("a");
+        UserAuthentication.getInstance(this).setPassword("2222");
+//        UserAuthentication.getInstance(this).isAuthenticated();
+
     }
 
     public void onClick(View v){
