@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -16,6 +17,7 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 public class LoginDialogue extends AppCompatDialogFragment {
     private EditText editTextUsername;
     private EditText editTextPassword;
+    private LoginDialogueListener listener;
 
 //    @Override
 //    public void onCreate(Bundle savedInstancesState){
@@ -49,7 +51,9 @@ public class LoginDialogue extends AppCompatDialogFragment {
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        String username = editTextUsername.getText().toString();
+                        String password = editTextPassword.getText().toString();
+                        listener.retrieveTexts(username, password);
                     }
                 });
 
@@ -57,5 +61,20 @@ public class LoginDialogue extends AppCompatDialogFragment {
         editTextPassword = view.findViewById(R.id.edit_password);
 
         return builder.create();
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+
+        try {
+            listener = (LoginDialogueListener) context;
+        } catch (ClassCastException e) {
+            throw new ClassCastException(context.toString() + "must implement LoginDialogueListener");
+        }
+    }
+
+    public interface LoginDialogueListener{
+        void retrieveTexts(String username, String password);
     }
 }

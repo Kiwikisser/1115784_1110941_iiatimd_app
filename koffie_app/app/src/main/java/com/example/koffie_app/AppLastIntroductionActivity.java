@@ -7,7 +7,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AppLastIntroductionActivity extends AppCompatActivity implements View.OnClickListener{
+public class AppLastIntroductionActivity extends AppCompatActivity implements View.OnClickListener, LoginDialogue.LoginDialogueListener{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +39,19 @@ public class AppLastIntroductionActivity extends AppCompatActivity implements Vi
                 Intent toHomeScreen = new Intent(this, CoffeeOverviewActivity.class); //evt to homepage activity
                 startActivity(toHomeScreen);
                 break;
+        }
+    }
+
+    @Override
+    public void retrieveTexts(String uname, String pword) {
+        // call login instance
+        String username = UserAuthentication.getInstance(this).getUsername();
+        String password = UserAuthentication.getInstance(this).getPassword();
+
+        if (username == uname && password == pword){
+            // TODO: RETURN USER TO HOME
+            Intent toMainScreen = new Intent(this, MainActivity.class);
+            startActivity(toMainScreen);
         }
     }
 }

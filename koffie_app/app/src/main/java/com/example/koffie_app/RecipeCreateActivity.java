@@ -119,7 +119,8 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
                         UserRecipes userRecipes = new UserRecipes(recipe_id, username, recipe_name, recipe_ingredients, coffee_bean, coffee_servings, coffee_prep_time);
 
                         // start thread to insert response values
-                        new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
+//                        new Thread(new InsertNewUserRecipe(db,userRecipes)).start();
+
                     } catch (JSONException e) {}
 
                 }
