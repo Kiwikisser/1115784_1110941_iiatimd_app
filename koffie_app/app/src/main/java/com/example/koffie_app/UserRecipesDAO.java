@@ -23,6 +23,9 @@ public interface UserRecipesDAO {
     @Delete
     void delete(UserRecipes userRecipes);
 
+    @Query("DELETE FROM user_recipes WHERE recipeId = :recipe_id")
+    abstract void deleteByUserId(String recipe_id);
+
     @Query("DELETE FROM USER_RECIPES")
     void deleteAllUserRecipes();
 }

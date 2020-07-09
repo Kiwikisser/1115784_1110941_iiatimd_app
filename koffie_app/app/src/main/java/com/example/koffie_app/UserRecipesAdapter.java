@@ -36,13 +36,6 @@ public class UserRecipesAdapter extends RecyclerView.Adapter<UserRecipesAdapter.
                 TextView textViewPrepTime= v.findViewById(R.id.userRecipePrepTime);
                 TextView textViewRecipeId= v.findViewById(R.id.userRecipeId);
 
-//                String recipeSummaryTitle = textViewTitle.getText().toString();
-//                String recipeSummaryCoffeeBean = textViewCoffeeBean.getText().toString();
-//                String recipeSummaryIngredients = textViewIngredients.getText().toString();
-//                String recipeSummaryServings = textViewServings.getText().toString();
-//                String recipeSummaryPrepTime = textViewPrepTime.getText().toString();
-//                String recipeSummaryRecipeId = textViewRecipeId.getText().toString();
-
                 Bundle bundleForRecipeSummary = new Bundle();
                 bundleForRecipeSummary.putString("title", textViewTitle.getText().toString());
                 bundleForRecipeSummary.putString("ingredients", textViewCoffeeBean.getText().toString());
