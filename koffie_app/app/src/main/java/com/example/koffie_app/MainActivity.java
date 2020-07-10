@@ -27,6 +27,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.l_main_page_stime);
         textViewMainHeader = this.findViewById(R.id.mainpage_header);
 
+        SharedPreferences  mPrefs = getPreferences(MODE_PRIVATE);
+        UserAuthentication.getInstance(this).setmPrefs(mPrefs);
+
         if(false){ // User is not logged in
             Button redirectToLoginButton = findViewById(R.id.button_mainpage_log);
             redirectToLoginButton.setOnClickListener(this);
