@@ -21,8 +21,8 @@ import org.json.JSONObject;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private final String POSTURL_MAUR = "http://192.168.178.115:8000/api/register";
-    private final String POSTURL_AMOS = "http://192.168.2.6:8000/api/register";
+    //private final String POSTURL_MAUR = "http://192.168.178.115:8000/api/register";
+    private final String POSTURL_AMOS = "https://still-atoll-19210.herokuapp.com/api/register";
     private EditText editTextUsername;
     private EditText editTextEmail;
     private EditText editTextPassword;

@@ -29,7 +29,7 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
     private TextView textViewIngredients;
     private TextView textViewCoffeeServings;
     private TextView textViewCoffeePrepTime;
-    final String DELETEPOSTURL = "http://192.168.178.115:8000/api/recipes/delete";
+    final String DELETEPOSTURL = "https://still-atoll-19210.herokuapp.com/api/recipes/delete";
     private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;
 
@@ -39,8 +39,6 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
         setContentView(R.layout.l_recipe_summary);
 
         Bundle recipeCardViewData = getIntent().getExtras();
-        textViewTitle.setText(recipeCardViewData.getString("title"));
-
 
         db = AppRoomDatabase.getInstance(getApplicationContext());
         textViewTitle = this.findViewById(R.id.recipe_summary_title);
