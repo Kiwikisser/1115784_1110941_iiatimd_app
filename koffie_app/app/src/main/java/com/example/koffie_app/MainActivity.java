@@ -72,6 +72,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             prefs.edit().putBoolean("firstrun", false).commit();
         }
+        // TODO: remove this test account
+        UserAuthentication.getInstance(this).setUsername("a");
+        UserAuthentication.getInstance(this).setPassword("2222");
+//        UserAuthentication.getInstance(this).isAuthenticated();
+
     }
     public void onClick(View v){
 //        Intent toHomePage = new Intent(this, AppHomePageActivity.class);

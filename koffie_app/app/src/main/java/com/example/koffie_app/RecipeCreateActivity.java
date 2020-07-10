@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import android.content.DialogInterface;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -29,13 +31,15 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.UUID;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RecipeCreateActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes, evt laravel online gooien ergens?
-    private String coffeebean; // variable for dropdown spinner value in form
-    private UserRecipesViewModel userRecipesViewModel;
+    //private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes
+    private final String POSTURL = "http://192.168.2.6:8000/api/recipes/create"; // path to store recipes
+    private String coffeebean; // variable for dropdown spinner
     AppRoomDatabase db;
-
+    private UserRecipesViewModel userRecipesViewModel;
     @Override
     public void onBackPressed(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -124,6 +128,10 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
 
     private void createUserRecipesForRoom(){} // evt set post object in this function
 
+    private String getToken(){
+        return UserAuthentication.getInstance(this).getToken();
+    }
+
     @Override
     public void onClick(View v) {
         final JSONObject newRecipeData = getRecipeFormData();
@@ -163,7 +171,17 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
                         // an efficient way to get offline data ONLY is by checking if the room recipe records id ends with a "-" character, offline generated recipe ids always end with a "-".
                     } catch (JSONException e) {}
                 }
-            });
+            }){
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    String authValue = "Bearer " + getToken();
+                    params.put("Authorization", authValue);
+                    params.put("Accept", "application/json; charset=UTF-8");
+                    params.put("Content-Type", "application/json");
+                    return params;
+                }
+            };
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
             userRecipesViewModel.getAllRecipes();
             Intent toIntroductionScreen = new Intent(this, UserRecipesOverviewActivity.class);

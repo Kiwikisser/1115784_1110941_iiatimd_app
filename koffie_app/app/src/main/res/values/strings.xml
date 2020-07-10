@@ -1,6 +1,6 @@
 <resources>
     <!-- Titles -->
-    <string name="app_name">KoffieApp\nNaam</string>
+    <string name="app_name">Coffeeling\nGood</string>
     <string name="header_title">KoffieApp Naam</string>
     <string name="intro_title">Introduction</string>
     <string name="recipes_title">Your recipes</string>
@@ -52,4 +52,5 @@
     <string name="form_hint_prepTime">min</string>
     <string name="form_hint_ingredients">1. A cup of milk\n2. A teaspoon of sugar</string>
     <string name="form_header">New Recipe</string>
+    <string name="login">Login</string>
 </resources>
