@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
+    <color name="colorPrimary">#bdbdbd</color>
+    <color name="colorPrimaryDark">#1f0e05</color>
     <color name="colorAccent">#03DAC5</color>
+
+    <color name="backgroundColor">#251311</color>
+    <color name="fontColor">#D0CFC8</color>
+
+    <!--  FIGMA COLOURS  -->
+    <color name="baseDarkColor">#21110F</color>
+    <color name="baseLightColor">#DEDDBC</color>
+    <color name="baseHighlightColor">#FFFBD6</color>
+
+    <color name="mainBrownColor">#61351B</color>
+
+    <color name="accentBrownColor">#543131</color>
+    <color name="accentNeutralColor">#473434</color>
+
+    <color name="detailGreenColor">#526C46</color>
 </resources>

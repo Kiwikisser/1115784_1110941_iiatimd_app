@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/layout_dialog_bg"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/title_login"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/rock_salt_regular"
+        android:text="@string/login"
+        android:textSize="30sp"
+        android:gravity="center_horizontal"/>
+
+    <EditText
+        android:id="@+id/edit_username"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_login"
+        android:layout_marginTop="38dp"
+        android:hint="Email"
+        android:textColor="#FFFCFC"
+        android:textColorHint="#423A3A" />
+
+    <EditText
+        android:id="@+id/edit_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edit_username"
+        android:layout_marginTop="18dp"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColor="#FFFCFC"
+        android:textColorHint="#423A3A" />
+</RelativeLayout>
