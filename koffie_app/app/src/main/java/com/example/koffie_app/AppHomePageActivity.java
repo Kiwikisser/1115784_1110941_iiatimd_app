@@ -24,8 +24,9 @@ public class AppHomePageActivity extends AppCompatActivity implements View.OnCli
     public void onClick(View v){
         switch(v.getId()){
             case R.id.button_home_learncoffee:
-                Intent toLearnAboutCoffeeScreen = new Intent(this, RegisterActivity.class); //evt learn about coffee pages
+                Intent toLearnAboutCoffeeScreen = new Intent(this, CoffeeInformationActivity.class); //evt learn about coffee pages
                 startActivity(toLearnAboutCoffeeScreen);
+                overridePendingTransition(R.anim.slide_out_left, R.anim.slide_in_right);
                 break;
             case R.id.button_home_choosecoffee:
                 Intent toCoffeeScreen = new Intent(this, CoffeeOverviewActivity.class);

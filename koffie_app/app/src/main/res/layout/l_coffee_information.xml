@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backgroundColor">
+
+    <ImageView
+        android:id="@+id/imageView69"
+        android:layout_width="71dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="8dp"
+        android:contentDescription="@string/imgDesc_coffeeBeanIcon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/main_coffeebean_icon" />
+
+    <TextView
+        android:id="@+id/coffeeintro_textView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_marginTop="48dp"
+        android:fontFamily="@font/rock_salt_regular"
+        android:gravity="center_horizontal"
+        android:text="Coffee"
+        android:textColor="@color/baseHighlightColor"
+        android:textSize="37sp"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="8dp" />
+
+    <TextView
+        android:id="@+id/coffeeintro_textView_desc"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:ellipsize="end"
+        android:fontFamily="@font/amaranth"
+        android:padding="32dp"
+        android:text="Coffee beans vary in their size, shape, color, and flavor depending on the region and conditions in which they were grown. The range of unique flavors and aromas between regional varietals is as expansive as the variety of wine available from different vineyards.\n\nArabica coffee beans are considered superior to Robusta because of its delicate flavor and low acidity. This variety is grown at higher altitudes and can be more difficult and costly to grow. These labor-intensive, low-yield plants produce a high-demand bean that sells for a higher price.\n\nRobusta coffee beans tends to have a more acidic and harsh flavor than Arabica as well as higher levels of caffeine. Robusta can be grown at lower altitudes, in hotter climates, and with less moisture. Since Robusta has fewer growing restrictions and has a generally less desirable flavor, it is usually sold for a lower price than Arabica beans. Most mass-market commercial beans are of the Robusta variety."
+        android:textColor="@color/baseLightColor"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/coffeeintro_textView"
+        tools:layout_editor_absoluteX="0dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

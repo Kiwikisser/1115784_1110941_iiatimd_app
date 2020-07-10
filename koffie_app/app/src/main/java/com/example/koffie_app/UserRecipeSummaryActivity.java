@@ -39,8 +39,6 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
         setContentView(R.layout.l_recipe_summary);
 
         Bundle recipeCardViewData = getIntent().getExtras();
-        textViewTitle.setText(recipeCardViewData.getString("title"));
-
 
         db = AppRoomDatabase.getInstance(getApplicationContext());
         textViewTitle = this.findViewById(R.id.recipe_summary_title);
