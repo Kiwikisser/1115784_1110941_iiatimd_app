@@ -25,8 +25,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage message){
         //Log.d("msg is: ", "notificatie ontvangen" + message);
         sendNotification(message.getData().get("coffeejoke"));
-
-
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void sendNotification(String messageBody){
