@@ -73,6 +73,7 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
                 Intent toEditRecipeForm = new Intent(this, RecipeEditActivity.class); // evt redirect to edit activity
                 toEditRecipeForm.putExtras(bundleForRecipeEditForm);
                 startActivity(toEditRecipeForm);
+                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                 break;
 
             case R.id.button_delete_recipe:
@@ -93,6 +94,7 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
                         new Thread(new DeleteRecipeActivity(db,recipeCardViewData.getString("recipe_id"))).start();
                         Intent backToRecipesOverview = new Intent(getApplicationContext(),UserRecipesOverviewActivity.class);
                         startActivity(backToRecipesOverview);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                     }
                 })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

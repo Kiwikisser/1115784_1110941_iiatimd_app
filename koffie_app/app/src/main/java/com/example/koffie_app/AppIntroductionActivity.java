@@ -18,6 +18,7 @@ public class AppIntroductionActivity extends AppCompatActivity implements View.O
     public void onClick(View v){
         Intent toLastIntroductionScreen = new Intent(this, AppLastIntroductionActivity.class);
         startActivity(toLastIntroductionScreen);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }
 
