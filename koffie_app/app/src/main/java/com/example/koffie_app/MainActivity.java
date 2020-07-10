@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences  mPrefs = getPreferences(MODE_PRIVATE);
         UserAuthentication.getInstance(this).setmPrefs(mPrefs);
 
-        Log.d("Welcome: ",UserAuthentication.getInstance(this).retrieveFromSharedPrefs("userData").getUsername() );
+//        Log.d("Welcome: ",UserAuthentication.getInstance(this).retrieveFromSharedPrefs("userData").getUsername() );
 
         if(!UserAuthentication.getInstance(this).isAuthenticated()){ // User is not logged in
             Button redirectToLoginButton = findViewById(R.id.button_mainpage_log);
