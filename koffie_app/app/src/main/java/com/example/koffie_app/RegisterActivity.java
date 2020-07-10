@@ -63,6 +63,14 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         UserAuthentication.getInstance(this).setPassword(password);
     }
 
+    private void storeUserInPrefs(User userObj){
+        UserAuthentication.getInstance(this).storeInSharedPrefs(userObj);
+    }
+
+    private User retrieveFromPrefs(String key){
+        return UserAuthentication.getInstance(this).retrieveFromSharedPrefs(key);
+    }
+
     private void assignToken(String token){
         UserAuthentication.getInstance(this).setToken(token);
     }
@@ -101,6 +109,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                             setCredentials(username, email, password);
                             assignToken(token);
                             logIn();
+                            storeUserInPrefs(new User(username, email, password));
+//                            retrieveFromPrefs("userData");
                         } catch (JSONException e) {
                             Log.d("onResponse: ", String.valueOf(e));
                         }
