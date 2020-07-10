@@ -34,7 +34,7 @@ public class CoffeeOverviewActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
 
-        final CoffeeAdapter adapter = new CoffeeAdapter();
+        final CoffeeAdapter adapter = new CoffeeAdapter(recyclerView);
         recyclerView.setAdapter(adapter);
 
         coffeeViewModel = ViewModelProviders.of(this).get(CoffeeViewModel.class);

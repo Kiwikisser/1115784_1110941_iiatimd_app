@@ -108,7 +108,7 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
             recipePrepTimeField.setError( "Value required!");
             return null;
         }
-        String currentUsername = "tito"; // example, evt username getten && default username if user is not logged in
+        String currentUsername = UserAuthentication.getInstance(this).retrieveFromSharedPrefs("userData").getUsername();
         String recipeName = recipeNameField.getText().toString();
         String recipeIngredients = recipeIngredientField.getText().toString();
         Integer recipeServings = Integer.parseInt(recipeServingsField.getText().toString());

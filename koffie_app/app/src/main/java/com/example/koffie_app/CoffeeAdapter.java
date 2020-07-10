@@ -2,12 +2,14 @@ package com.example.koffie_app;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.res.ResourcesCompat;
@@ -20,6 +22,14 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
     private List<Coffee> coffee = new ArrayList<>();
     private Context ctx;
     private String packageName;
+//    private Bundle bundleForCoffeeSummary;
+    private CoffeeHolder coffeeHolder;
+    private RecyclerView recyclerView;
+
+    public CoffeeAdapter(RecyclerView recyclerView) {
+        this.recyclerView = recyclerView;
+    }
+//    private final View.OnClickListener mOnClickListener = new OnClickListener();
 
     @NonNull
     @Override
@@ -28,16 +38,43 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
         final Context context = parent.getContext();
         this.ctx = context;
         this.packageName = context.getPackageName();
+
+        coffeeHolder = new CoffeeHolder(itemView);
+
         itemView.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(context,
-                        AppIntroductionActivity.class);
-                context.startActivity(intent);
+            public void onClick(final View view) {
+                int itemPosition = recyclerView.getChildLayoutPosition(view);
+                Coffee item = coffee.get(itemPosition);
+                Toast.makeText(ctx, item.getName(), Toast.LENGTH_LONG).show();
 
+                String name = item.getName();
+                String ingredients = item.getDescription(); // don't ask I don't know ok
+                String description = item.getIngredients(); // don't ask I don't know ok
+                String coffee_bean = item.getBeans();
+                int servings = item.getServings();
+                int prep_time = item.getPrepTime();
+                String image = item.getImage();
+
+                Bundle bundleForCoffeeSummary = new Bundle();
+                bundleForCoffeeSummary.putString("name", name);
+                bundleForCoffeeSummary.putString("description", description);
+                bundleForCoffeeSummary.putString("ingredients", ingredients);
+                bundleForCoffeeSummary.putString("coffee_bean", coffee_bean);
+                bundleForCoffeeSummary.putInt("servings", servings);
+                bundleForCoffeeSummary.putInt("prep_time", prep_time);
+                bundleForCoffeeSummary.putString("image", image);
+
+                Log.d( "onClick: ", String.valueOf(bundleForCoffeeSummary.get("description")));
+
+                Log.d("onCreate: ", item.getDescription());
+
+                Intent intent = new Intent(context, CoffeeSummaryActivity.class);
+                intent.putExtras(bundleForCoffeeSummary);
+                context.startActivity(intent);
             }
         });
-        return new CoffeeHolder(itemView);
+        return coffeeHolder;
     }
 
     @Override

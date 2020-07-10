@@ -31,6 +31,8 @@
         <activity android:name=".RecipeEditActivity"/>
         <activity android:name=".UserRecipeSummaryActivity"/>
         <activity android:name=".UserRecipesOverviewActivity"/>
+        <activity android:name=".CoffeeSummaryActivity"/>
+      
         <service android:name=".MyFirebaseMessagingService"
             android:exported="false">
             <intent-filter>
