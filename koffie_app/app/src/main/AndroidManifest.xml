@@ -31,8 +31,12 @@
         <activity android:name=".RecipeEditActivity"/>
         <activity android:name=".UserRecipeSummaryActivity"/>
         <activity android:name=".UserRecipesOverviewActivity"/>
-        <activity android:name=".CoffeeOverviewActivity"/>
-
+        <service android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
