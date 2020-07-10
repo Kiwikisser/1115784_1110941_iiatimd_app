@@ -22,6 +22,7 @@ public class UserRecipesOverviewActivity extends AppCompatActivity implements Vi
         public void onBackPressed(){
             Intent backToHomePage = new Intent(this, AppHomePageActivity.class); // evt redirect to edit activity
             startActivity(backToHomePage);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         }
         @Override
         protected void onCreate(Bundle savedInstanceState){
@@ -48,5 +49,6 @@ public class UserRecipesOverviewActivity extends AppCompatActivity implements Vi
     public void onClick(View v){
         Intent toIntroductionScreen = new Intent(this, RecipeCreateActivity.class);
         startActivity(toIntroductionScreen);
+        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
     }
 }

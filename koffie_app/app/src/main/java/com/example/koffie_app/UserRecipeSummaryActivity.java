@@ -37,7 +37,11 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.l_recipe_summary);
+
         Bundle recipeCardViewData = getIntent().getExtras();
+        textViewTitle.setText(recipeCardViewData.getString("title"));
+
+
         db = AppRoomDatabase.getInstance(getApplicationContext());
         textViewTitle = this.findViewById(R.id.recipe_summary_title);
         textViewCoffeeBean = this.findViewById(R.id.recipe_summary_coffeebean);
@@ -73,6 +77,7 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
                 Intent toEditRecipeForm = new Intent(this, RecipeEditActivity.class); // evt redirect to edit activity
                 toEditRecipeForm.putExtras(bundleForRecipeEditForm);
                 startActivity(toEditRecipeForm);
+                overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                 break;
 
             case R.id.button_delete_recipe:
@@ -93,6 +98,7 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
                         new Thread(new DeleteRecipeActivity(db,recipeCardViewData.getString("recipe_id"))).start();
                         Intent backToRecipesOverview = new Intent(getApplicationContext(),UserRecipesOverviewActivity.class);
                         startActivity(backToRecipesOverview);
+                        overridePendingTransition(R.anim.slide_up, R.anim.slide_down);
                     }
                 })
                         .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
