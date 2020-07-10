@@ -33,8 +33,8 @@ public class ConnectionPeriodicTask implements Runnable{
     private boolean inetConnection;
 
     // TODO: 09/07/2020 CHANGE URL ROUTES TO CORRECT COFFEE TABLES 
-    private final String URL_MAUR = "http://192.168.178.115:8000/api/recipes";
-    private final String URL_AMOS = "http://192.168.2.6:8000/api/recipes";
+    private final String URL_MAUR = "http://192.168.178.115:8000/api/coffee";
+    private final String URL_AMOS = "http://192.168.2.6:8000/api/coffee";
 
     private ConnectionPeriodicTask(Context ctx, Handler hndlr, int intrvl, CoffeeViewModel coffeeVM){
         context = ctx;
@@ -100,8 +100,6 @@ public class ConnectionPeriodicTask implements Runnable{
 
 //        List<Coffee> coffeeArray = new ArrayList<Coffee>();
 
-        final Coffee[] coffee = new Coffee[20];// TODO: 07/07/2020 make arraylist
-
         JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL_AMOS, null,
                 new Response.Listener<JSONArray>() {
                     @Override
@@ -110,16 +108,16 @@ public class ConnectionPeriodicTask implements Runnable{
 //                            Log.d("onResponse: ", String.valueOf(response.getJSONObject(0).get
 //                            ("recipe_name")));
                             for (int i = 0; i < response.length(); i++){
-//                                String id = (String) response.getJSONObject(i).get("recipe_name");
-                                String id = (String) response.getJSONObject(i).get("recipe_id");
-                                String name = (String) response.getJSONObject(i).get("recipe_name");
-                                String description = (String) response.getJSONObject(i).get("recipe_ingredients");
-                                String beans = (String) response.getJSONObject(i).get("coffee_bean");
-                                int volume = (int) response.getJSONObject(i).get("coffee_servings");
-                                String roast = "black";
-                                int time = (int) response.getJSONObject(i).get("coffee_prep_time");
+                                int id = i;
+                                String name = (String) response.getJSONObject(i).get("coffee_name");
+                                String ingredients = (String) response.getJSONObject(i).get("coffee_ingredients");
+                                String description = (String) response.getJSONObject(i).get("coffee_description");
+                                String bean = (String) response.getJSONObject(i).get("coffee_bean");
+                                int servings = (int) response.getJSONObject(i).get("coffee_servings");
+                                int preptime = (int) response.getJSONObject(i).get("coffee_preptime");
+                                String image = (String) response.getJSONObject(i).get("coffee_image");
 
-                                Coffee coffeeObj = new Coffee(id, name, description, beans, volume, roast, time);
+                                Coffee coffeeObj = new Coffee(id, name, ingredients, description, bean, servings, preptime, image);
                                 coffeeViewModel.insert(coffeeObj);
 //                                coffee[i] = coffeeObj;
 //                                coffeeArray[i] = appendValue(coffeeArray[0], coffeeObj);
