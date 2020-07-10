@@ -36,7 +36,7 @@ import java.util.Map;
 
 public class RecipeCreateActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
     //private final String POSTURL = "http://192.168.178.115:8000/api/recipes/create"; // path to store recipes
-    private final String POSTURL = "http://192.168.2.6:8000/api/recipes/create"; // path to store recipes
+    private final String POSTURL = "https://still-atoll-19210.herokuapp.com/api/recipes/create"; // path to store recipes
     private String coffeebean; // variable for dropdown spinner
     AppRoomDatabase db;
     private UserRecipesViewModel userRecipesViewModel;
