@@ -10,46 +10,44 @@
         android:id="@+id/textView4"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:gravity="end"
         android:text="@string/header_title"
         android:textColor="@color/fontColor"
-        android:gravity="center"
-        app:autoSizeTextType="uniform"
         app:autoSizeMaxTextSize="20sp"
         app:autoSizeStepGranularity="1sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintBottom_toTopOf="@+id/guideline94"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="@+id/guideline26"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/guideline95" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:contentDescription="@string/imgDesc_coffeeBeanIcon"
-        app:layout_constraintBottom_toTopOf="@+id/guideline6"
-        app:layout_constraintEnd_toStartOf="@+id/guideline26"
+        app:layout_constraintBottom_toTopOf="@+id/guideline100"
+        app:layout_constraintEnd_toStartOf="@+id/guideline101"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline27"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline99"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/main_coffeebean_icon" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/linearLayout2"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#59330F"
+        android:background="@drawable/custom_crecipe_subwindow"
         android:orientation="vertical"
         android:paddingTop="15dp"
-
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline3"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
         app:layout_constraintTop_toTopOf="@+id/guideline6"
         app:layout_constraintVertical_bias="0.0">
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout3"
@@ -58,21 +56,18 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="16dp"
             android:background="#673333"
             android:gravity="center"
 
-            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintBottom_toTopOf="@+id/guideline96"
             app:layout_constraintEnd_toStartOf="@+id/guideline29"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="@+id/guideline98">
 
             <TextView
                 android:id="@+id/textView112"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-
                 android:layout_marginStart="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginEnd="5dp"
@@ -87,6 +82,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ImageView
@@ -96,10 +92,11 @@
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginRight="5dp"
             android:contentDescription="@string/imgDesc_coffee"
-            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintBottom_toTopOf="@+id/guideline103"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/guideline28"
@@ -129,14 +126,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.47" />
+                app:layout_constraintGuide_percent="0.46969697" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline23"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintGuide_percent="0.53" />
+                app:layout_constraintGuide_percent="0.530303" />
 
             <TextView
                 android:id="@+id/textView11"
@@ -144,7 +141,7 @@
                 android:layout_height="0dp"
                 android:text="@string/form_createRecipe_name"
                 android:textColor="@color/fontColor"
-                android:gravity="center|left"
+                android:gravity="center|start"
                 app:autoSizeTextType="uniform"
                 app:autoSizeMaxTextSize="20sp"
                 app:autoSizeStepGranularity="1sp"
@@ -157,7 +154,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.09" />
+                app:layout_constraintGuide_percent="0.08" />
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/input_recipeName"
@@ -177,22 +174,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.20
-" />
+                app:layout_constraintGuide_percent="0.19" />
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline124"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.22
-
-" />
-
+                app:layout_constraintGuide_percent="0.21" />
             <TextView
                 android:id="@+id/textView111"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="center|left"
+                android:gravity="center|start"
                 android:text="@string/form_createRecipe_supplements"
                 android:textColor="@color/fontColor"
                 app:autoSizeMaxTextSize="20sp"
@@ -207,7 +200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.31" />
+                app:layout_constraintGuide_percent="0.30" />
             <EditText
                 android:id="@+id/input_ingredients"
                 android:layout_width="0dp"
@@ -222,7 +215,8 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView111" />
+                app:layout_constraintTop_toBottomOf="@+id/textView111"
+                android:inputType="text"/>
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline7"
@@ -236,12 +230,11 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 app:layout_constraintGuide_percent="0.59" />
-
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="center|left"
+                android:gravity="center|start"
                 android:text="@string/form_createRecipe_bean"
                 android:textColor="@color/fontColor"
                 app:autoSizeMaxTextSize="20sp"
@@ -256,13 +249,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.68" />
+                app:layout_constraintGuide_percent="0.67" />
 
             <Spinner
                 android:id="@+id/input_coffeeBean"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-
                 android:background="@android:drawable/btn_dropdown"
                 android:spinnerMode="dropdown"
                 app:layout_constraintBottom_toTopOf="@+id/guideline18"
@@ -275,7 +267,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.80" />
+                app:layout_constraintGuide_percent="0.81" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -286,7 +278,6 @@
                 app:autoSizeMaxTextSize="20sp"
                 app:autoSizeStepGranularity="1sp"
                 app:autoSizeTextType="uniform"
-                android:gravity="center"
                 app:layout_constraintBottom_toTopOf="@+id/guideline19"
                 app:layout_constraintEnd_toStartOf="@+id/guideline20"
                 app:layout_constraintStart_toStartOf="parent"
@@ -296,7 +287,6 @@
                 android:id="@+id/textView113"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:gravity="center"
                 android:text="@string/form_createRecipe_prepTime"
                 android:textColor="@color/fontColor"
                 app:autoSizeMaxTextSize="20sp"
@@ -311,7 +301,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:layout_constraintGuide_percent="0.89" />
+                app:layout_constraintGuide_percent="0.88" />
 
             <androidx.constraintlayout.widget.Guideline
                 android:id="@+id/guideline25"
@@ -358,7 +348,7 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
-            android:background="#996345"
+            android:background="@drawable/custom_button_radius"
             android:text="@string/submit_recipe_button"
             android:textColor="@color/fontColor"
             android:textSize="18sp"
@@ -412,11 +402,32 @@
             app:layout_constraintGuide_percent="0.15" />
 
         <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline103"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.14" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline96"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.12" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline98"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.02" />
+
+        <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.83" />
+            app:layout_constraintGuide_percent="0.84" />
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline14"
@@ -433,14 +444,42 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.94" />
+        app:layout_constraintGuide_percent="0.93" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.09" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline94"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.06" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline95"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.03" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline99"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.015" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline100"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.075" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline2"
@@ -461,13 +500,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.52" />
+        app:layout_constraintGuide_percent="0.63" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline101"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.61" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline27"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.28" />
+        app:layout_constraintGuide_percent="0.495" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
