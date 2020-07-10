@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.os.Handler;
 import android.widget.TextView;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -23,6 +24,9 @@ import com.android.volley.toolbox.JsonObjectRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoginDialogue.LoginDialogueListener {
 
@@ -33,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView textViewMainHeader;
     private String POSTURL = "http://192.168.2.6:8000/api/login";
     private String token = null;
+    private String LOGOUTURL = "http://192.168.2.6:8000/api/logout";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -125,7 +130,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void logUserInOrOut(boolean state, Intent intent){
         if (state) {
             //logout
-            startActivity(intent);
+            String userToken = UserAuthentication.getInstance(this).getToken();
+            logOutUser();
         } else {
             //login
             LoginDialogue loginDialogue = new LoginDialogue();
@@ -184,5 +190,48 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
         }
+    }
+
+    private String getToken(){
+        return UserAuthentication.getInstance(this).getToken();
+    }
+
+    public void logOutUser(){
+        final Context ctx = this;
+        RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, LOGOUTURL, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("response", response.toString());
+
+//                    try {
+//                        token = response.getString("access_token");
+//
+//                    } catch (JSONException e) {}
+
+                UserAuthentication.getInstance(ctx).setAuthenticated(false);
+
+                Intent toIntroductionScreen = new Intent(ctx, MainActivity.class);
+                startActivity(toIntroductionScreen);
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Log.d("error", String.valueOf(error));
+            }
+        }){
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String>  params = new HashMap<String, String>();
+                String authValue = "Bearer " + getToken();
+                params.put("Authorization", authValue);
+                params.put("Accept", "application/json; charset=UTF-8");
+                params.put("Content-Type", "application/json");
+                return params;
+            }
+        };
+
+        VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
     }
 }
