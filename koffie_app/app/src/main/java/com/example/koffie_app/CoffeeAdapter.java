@@ -49,6 +49,9 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
         String icon = "dummy_coffee";
 //        int resID = getReources
 
+        //code styling
+        holder.textViewTitle.setTypeface(ResourcesCompat.getFont(ctx, R.font.rock_salt_regular));
+
         //put assigners
         holder.textViewTitle.setText(currentCoffee.getName());
         holder.textViewDescription.setText(currentCoffee.getDescription());
