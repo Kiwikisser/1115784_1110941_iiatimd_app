@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import android.annotation.SuppressLint;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -38,6 +40,22 @@ public class RecipeEditActivity extends AppCompatActivity implements View.OnClic
     private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;
 
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to close?\nYour changes will be lost").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id) {
+                RecipeEditActivity.this.finish();
+            }
+        })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        return;
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState){

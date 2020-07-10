@@ -1,5 +1,6 @@
 package com.example.koffie_app;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -12,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -33,6 +35,24 @@ public class RecipeCreateActivity extends AppCompatActivity implements View.OnCl
     private String coffeebean; // variable for dropdown spinner value in form
     private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;
+
+    @Override
+    public void onBackPressed(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Do you want to close?\nYour changes will be lost").setCancelable(false).setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            public void onClick(DialogInterface dialog, int id) {
+                RecipeCreateActivity.this.finish();
+            }
+        })
+        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                return;
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);

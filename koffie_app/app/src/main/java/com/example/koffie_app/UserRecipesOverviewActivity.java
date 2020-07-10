@@ -17,6 +17,12 @@ import java.util.List;
 
 public class UserRecipesOverviewActivity extends AppCompatActivity implements View.OnClickListener {
         private UserRecipesViewModel userRecipesViewModel;
+
+        @Override
+        public void onBackPressed(){
+            Intent backToHomePage = new Intent(this, AppHomePageActivity.class); // evt redirect to edit activity
+            startActivity(backToHomePage);
+        }
         @Override
         protected void onCreate(Bundle savedInstanceState){
             super.onCreate(savedInstanceState);

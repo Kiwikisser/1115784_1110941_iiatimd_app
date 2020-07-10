@@ -1,6 +1,7 @@
 package com.example.koffie_app;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -28,9 +30,9 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
     private TextView textViewCoffeeServings;
     private TextView textViewCoffeePrepTime;
     final String DELETEPOSTURL = "http://192.168.178.115:8000/api/recipes/delete";
-
     private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;
+
     @Override
     protected void onCreate(Bundle savedInstanceState)  {
         super.onCreate(savedInstanceState);
@@ -56,7 +58,7 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
         deleteRecipeButton.setOnClickListener(this);
     }
     public void onClick(View v){
-        Bundle recipeCardViewData = getIntent().getExtras();
+        final Bundle recipeCardViewData = getIntent().getExtras();
 
         switch(v.getId()) {
             case R.id.button_edit_recipe:
@@ -74,22 +76,32 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
                 break;
 
             case R.id.button_delete_recipe:
-                Intent backToRecipesOverview = new Intent(this, UserRecipesOverviewActivity.class);
-                startActivity(backToRecipesOverview);
-                userRecipesViewModel = ViewModelProviders.of(this).get(UserRecipesViewModel.class);
-
-                JSONObject toDeleteObject = new JSONObject();
-                try { toDeleteObject.put("recipeId",recipeCardViewData.getString("recipe_id")); } catch (JSONException e) {}
-                RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-                JsonObjectRequest jsonObjectRequest  = new JsonObjectRequest(Request.Method.POST, DELETEPOSTURL, toDeleteObject ,new Response.Listener<JSONObject>() {
-                    @Override
-                    public void onResponse(JSONObject response) {}
-                }, new Response.ErrorListener(){
-                    @Override
-                    public void onErrorResponse(VolleyError error){}
-                });
-                VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
-                new Thread(new DeleteRecipeActivity(db,recipeCardViewData.getString("recipe_id"))).start();
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("Do you want to delete your recipe?").setCancelable(false).setPositiveButton("Yes", new DialogInterface.OnClickListener(){
+                    public void onClick(DialogInterface dialog, int id) {
+                        JSONObject toDeleteObject = new JSONObject();
+                        try { toDeleteObject.put("recipeId",recipeCardViewData.getString("recipe_id")); } catch (JSONException e) {}
+                        RequestQueue queue = VolleySingleton.getInstance(getApplicationContext()).getRequestQueue();
+                        JsonObjectRequest jsonObjectRequest  = new JsonObjectRequest(Request.Method.POST, DELETEPOSTURL, toDeleteObject ,new Response.Listener<JSONObject>() {
+                            @Override
+                            public void onResponse(JSONObject response) {}
+                        }, new Response.ErrorListener(){
+                            @Override
+                            public void onErrorResponse(VolleyError error){}
+                        });
+                        VolleySingleton.getInstance(getApplicationContext()).addToRequestQueue(jsonObjectRequest);
+                        new Thread(new DeleteRecipeActivity(db,recipeCardViewData.getString("recipe_id"))).start();
+                        Intent backToRecipesOverview = new Intent(getApplicationContext(),UserRecipesOverviewActivity.class);
+                        startActivity(backToRecipesOverview);
+                    }
+                })
+                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                return;
+                            }
+                        });
+                AlertDialog alert = builder.create();
+                alert.show();
                 break;
         }
     }
