@@ -23,10 +23,13 @@
 
         <activity android:name=".AppIntroductionActivity" />
         <activity android:name=".AppLastIntroductionActivity" />
+        <activity android:name=".AppHomePageActivity"/>
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
-
+        <activity android:name=".CoffeeOverviewActivity"/>
         <activity android:name=".RecipeCreateActivity"/>
+        <activity android:name=".RecipeEditActivity"/>
+        <activity android:name=".UserRecipeSummaryActivity"/>
         <activity android:name=".UserRecipesOverviewActivity"/>
 
         <meta-data
