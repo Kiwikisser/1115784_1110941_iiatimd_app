@@ -35,9 +35,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     SharedPreferences prefs = null;
     Intent logButtonIntent;
     private TextView textViewMainHeader;
-    private String POSTURL = "http://192.168.2.6:8000/api/login";
+    private String POSTURL = "https://still-atoll-19210.herokuapp.com/api/login";
     private String token = null;
-    private String LOGOUTURL = "http://192.168.2.6:8000/api/logout";
+    private String LOGOUTURL = "https://still-atoll-19210.herokuapp.com/api/logout";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -48,8 +48,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         SharedPreferences  mPrefs = getPreferences(MODE_PRIVATE);
         UserAuthentication.getInstance(this).setmPrefs(mPrefs);
-
-//        Log.d("Welcome: ",UserAuthentication.getInstance(this).retrieveFromSharedPrefs("userData").getUsername() );
 
         if(!UserAuthentication.getInstance(this).isAuthenticated()){ // User is not logged in
             Button redirectToLoginButton = findViewById(R.id.button_mainpage_log);
