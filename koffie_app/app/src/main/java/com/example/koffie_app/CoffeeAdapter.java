@@ -2,7 +2,7 @@ package com.example.koffie_app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,12 +18,16 @@ import java.util.List;
 
 public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHolder> {
     private List<Coffee> coffee = new ArrayList<>();
+    private Context ctx;
+    private String packageName;
 
     @NonNull
     @Override
     public CoffeeHolder onCreateViewHolder(@NonNull final ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.coffee_overview_card, parent, false);
         final Context context = parent.getContext();
+        this.ctx = context;
+        this.packageName = context.getPackageName();
         itemView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
@@ -40,16 +43,32 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
     @Override
     public void onBindViewHolder(@NonNull CoffeeHolder holder, int position) {
         Coffee currentCoffee = coffee.get(position);
+
+        String icon = "dummy_coffee";
+//        int resID = getReources
+
+        //code styling
+        holder.textViewTitle.setTypeface(ResourcesCompat.getFont(ctx, R.font.rock_salt_regular));
+
         //put assigners
         holder.textViewTitle.setText(currentCoffee.getName());
         holder.textViewDescription.setText(currentCoffee.getDescription());
-        holder.imageView.setImageResource(R.drawable.dummy_coffee);      // TODO: 05/07/2020 retrieve images
+//        holder.imageView.setImageResource(R.drawable.dummy_coffee);      // TODO: 05/07/2020 retrieve images
+        holder.imageView.setImageResource(retrieveDrawable(currentCoffee.getImage(), packageName));
+        Log.d("loaded image res: ", String.valueOf(retrieveDrawable(currentCoffee.getImage(), packageName)));
 //        holder.textViewPriority.setText(String.valueOf(currentCoffee.getPriority()));
     }
 
     @Override
     public int getItemCount() {
         return coffee.size();
+    }
+
+    public int retrieveDrawable(String imageName, String packageName){
+        Log.d("retrieveDraw img: ", imageName);
+        Log.d("retrieveDraw pkg: ", packageName);
+        int resID = ctx.getResources().getIdentifier(imageName, "drawable", packageName);
+        return resID;
     }
 
     public void setCoffee(List<Coffee> coffee){
