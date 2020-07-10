@@ -29,7 +29,7 @@ public class UserRecipeSummaryActivity extends AppCompatActivity implements View
     private TextView textViewIngredients;
     private TextView textViewCoffeeServings;
     private TextView textViewCoffeePrepTime;
-    final String DELETEPOSTURL = "http://192.168.178.115:8000/api/recipes/delete";
+    final String DELETEPOSTURL = "https://still-atoll-19210.herokuapp.com/api/recipes/delete";
     private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;
 

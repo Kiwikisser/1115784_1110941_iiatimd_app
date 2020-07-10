@@ -21,7 +21,7 @@ import org.json.JSONObject;
 
 public class AppLastIntroductionActivity extends AppCompatActivity implements View.OnClickListener, LoginDialogue.LoginDialogueListener{
 
-    private String POSTURL = "http://192.168.2.6:8000/api/login";
+    private String POSTURL = "https://still-atoll-19210.herokuapp.com/api/login";
     private String token = null;
 
     @Override

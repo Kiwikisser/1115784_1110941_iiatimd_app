@@ -23,6 +23,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
     private final String POSTURL_MAUR = "http://192.168.178.115:8000/api/register";
     private final String POSTURL_AMOS = "http://192.168.2.6:8000/api/register";
+    private final String POSTURL_HERO = "https://still-atoll-19210.herokuapp.com/apiapi/register";
     private EditText editTextUsername;
     private EditText editTextEmail;
     private EditText editTextPassword;
@@ -98,7 +99,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
             Log.d("data json: ", String.valueOf(newUserData));
             if(newUserData != null){
                 RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
-                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, POSTURL_AMOS, newUserData, new Response.Listener<JSONObject>() {
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, POSTURL_HERO, newUserData, new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d("response", response.toString());
