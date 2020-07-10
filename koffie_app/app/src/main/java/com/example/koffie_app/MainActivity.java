@@ -3,23 +3,37 @@ package com.example.koffie_app;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import android.os.Handler;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, LoginDialogue.LoginDialogueListener {
 
     AppRoomDatabase database;
     private CoffeeViewModel coffeeViewModel;
     SharedPreferences prefs = null;
     Intent logButtonIntent;
     private TextView textViewMainHeader;
+    private String POSTURL = "http://192.168.2.6:8000/api/login";
+    private String token = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -30,19 +44,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SharedPreferences  mPrefs = getPreferences(MODE_PRIVATE);
         UserAuthentication.getInstance(this).setmPrefs(mPrefs);
 
-        if(false){ // User is not logged in
+        Log.d("Welcome: ",UserAuthentication.getInstance(this).retrieveFromSharedPrefs("userData").getUsername() );
+
+        if(!UserAuthentication.getInstance(this).isAuthenticated()){ // User is not logged in
             Button redirectToLoginButton = findViewById(R.id.button_mainpage_log);
             redirectToLoginButton.setOnClickListener(this);
             // set intent to redirect to login page
             textViewMainHeader.setText("Is not logged in");
             redirectToLoginButton.setText("login");
             redirectToLoginButton.setBackgroundColor(Color.parseColor("#526C46"));
-            logButtonIntent = new Intent(this, LoginActivity.class);
+
+            logButtonIntent = new Intent(this, MainActivity.class);
         }
         else{ // User is logged in
             Button startLogoutButton = findViewById(R.id.button_mainpage_log);
             startLogoutButton.setOnClickListener(this);
-            textViewMainHeader.setText("Welcome " + "dddd"); // second value is username
+            String username = UserAuthentication.getInstance(this).retrieveFromSharedPrefs("userData").getUsername();
+            textViewMainHeader.setText("Welcome back " + username + "!"); // second value is username
 
             //do something for logout
             logButtonIntent = new Intent(this, MainActivity.class);
@@ -94,12 +112,77 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(toHomePage);
                 break;
             case R.id.button_mainpage_log:
-                startActivity(logButtonIntent);
+                boolean loginState = UserAuthentication.getInstance(this).isAuthenticated();
+                logUserInOrOut(loginState, logButtonIntent);
                 break;
             case R.id.button_mainpage_introduction:
                 Intent toIntroductionAgain = new Intent(this, AppIntroductionActivity.class);
                 startActivity(toIntroductionAgain);
                 break;
+        }
+    }
+
+    public void logUserInOrOut(boolean state, Intent intent){
+        if (state) {
+            //logout
+            startActivity(intent);
+        } else {
+            //login
+            LoginDialogue loginDialogue = new LoginDialogue();
+            loginDialogue.show(getSupportFragmentManager(), "login dialog");
+        }
+    }
+
+    private JSONObject getLoginData(String email, String password){
+        JSONObject recipeObject = new JSONObject();
+        try{
+            recipeObject.put("email", email);
+            recipeObject.put("password", password);
+        }
+        catch(Exception e){}
+        return recipeObject;
+    }
+
+    private void AuthenticateUser(String email, String password, String token, boolean isAuth){
+        UserAuthentication.getInstance(this).setEmail(email);
+        UserAuthentication.getInstance(this).setPassword(password);
+        UserAuthentication.getInstance(this).setToken(token);
+        UserAuthentication.getInstance(this).setAuthenticated(isAuth);
+    }
+
+    @Override
+    public void retrieveTexts(final String email, final String pword) {
+
+        JSONObject userData = getLoginData(email, pword);
+
+        final Context ctx = this;
+
+        if(userData != null){
+            RequestQueue queue = VolleySingleton.getInstance(this.getApplicationContext()).getRequestQueue();
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, POSTURL, userData, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d("response", response.toString());
+
+                    try {
+                        token = response.getString("access_token");
+
+                    } catch (JSONException e) {}
+
+                    AuthenticateUser(email, pword, token, true);
+
+                    Intent toIntroductionScreen = new Intent(ctx, MainActivity.class);
+                    startActivity(toIntroductionScreen);
+
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Log.d("error", String.valueOf(error));
+                }
+            });
+
+            VolleySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
         }
     }
 }
