@@ -35,7 +35,7 @@ import java.util.UUID;
 import static java.lang.Integer.parseInt;
 
 public class RecipeEditActivity extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemSelectedListener {
-    private final String POSTURL = "http://192.168.178.115:8000/api/recipes/update"; // path to store recipes, evt laravel online gooien ergens?
+    private final String POSTURL = "https://still-atoll-19210.herokuapp.com/api/recipes/update"; // path to store recipes, evt laravel online gooien ergens?
     private String coffeebean; // variable for dropdown spinner value in form
     private UserRecipesViewModel userRecipesViewModel;
     AppRoomDatabase db;

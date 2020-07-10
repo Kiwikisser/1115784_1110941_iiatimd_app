@@ -35,6 +35,7 @@ public class ConnectionPeriodicTask implements Runnable{
     // TODO: 09/07/2020 CHANGE URL ROUTES TO CORRECT COFFEE TABLES 
     private final String URL_MAUR = "http://192.168.178.115:8000/api/coffee";
     private final String URL_AMOS = "http://192.168.2.6:8000/api/coffee";
+    private final String URL_HERO = "https://still-atoll-19210.herokuapp.com/api/coffee";
 
     private ConnectionPeriodicTask(Context ctx, Handler hndlr, int intrvl, CoffeeViewModel coffeeVM){
         context = ctx;
@@ -100,7 +101,7 @@ public class ConnectionPeriodicTask implements Runnable{
 
 //        List<Coffee> coffeeArray = new ArrayList<Coffee>();
 
-        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL_AMOS, null,
+        JsonArrayRequest jsonObjectRequest = new JsonArrayRequest(Request.Method.GET, URL_HERO, null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
