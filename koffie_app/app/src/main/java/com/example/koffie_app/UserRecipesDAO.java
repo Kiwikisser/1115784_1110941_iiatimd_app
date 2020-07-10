@@ -1,19 +1,31 @@
 package com.example.koffie_app;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import java.util.List;
 @Dao
 public interface UserRecipesDAO {
     @Query("SELECT * FROM user_recipes")
-    List<UserRecipes> getAll();
+    LiveData<List<UserRecipes>> getAllRecipes();
 
-    @Insert
-    void InsertRecipe(UserRecipes userRecipes);
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void insert(UserRecipes userRecipes);
+
+    @Update(onConflict = OnConflictStrategy.REPLACE)
+    void update(UserRecipes userRecipes);
 
     @Delete
     void delete(UserRecipes userRecipes);
+
+    @Query("DELETE FROM user_recipes WHERE recipeId = :recipe_id")
+    abstract void deleteByUserId(String recipe_id);
+
+    @Query("DELETE FROM USER_RECIPES")
+    void deleteAllUserRecipes();
 }

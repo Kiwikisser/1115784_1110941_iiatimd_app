@@ -52,7 +52,7 @@ public class AppLastIntroductionActivity extends AppCompatActivity implements Vi
                 exampleDialogue.show(getSupportFragmentManager(), "login dialog");
                 break;
             case R.id.button_intro_skip:
-                Intent toHomeScreen = new Intent(this, RecipeCreateActivity.class); //evt to homepage activity
+                Intent toHomeScreen = new Intent(this, AppHomePageActivity.class); //evt to homepage activity
                 startActivity(toHomeScreen);
                 break;
         }
