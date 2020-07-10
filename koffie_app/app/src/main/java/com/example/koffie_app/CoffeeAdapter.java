@@ -2,8 +2,7 @@ package com.example.koffie_app;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -55,7 +53,9 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
         //put assigners
         holder.textViewTitle.setText(currentCoffee.getName());
         holder.textViewDescription.setText(currentCoffee.getDescription());
-        holder.imageView.setImageResource(R.drawable.dummy_coffee);      // TODO: 05/07/2020 retrieve images
+//        holder.imageView.setImageResource(R.drawable.dummy_coffee);      // TODO: 05/07/2020 retrieve images
+        holder.imageView.setImageResource(retrieveDrawable(currentCoffee.getImage(), packageName));
+        Log.d("loaded image res: ", String.valueOf(retrieveDrawable(currentCoffee.getImage(), packageName)));
 //        holder.textViewPriority.setText(String.valueOf(currentCoffee.getPriority()));
     }
 
@@ -65,6 +65,8 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.CoffeeHold
     }
 
     public int retrieveDrawable(String imageName, String packageName){
+        Log.d("retrieveDraw img: ", imageName);
+        Log.d("retrieveDraw pkg: ", packageName);
         int resID = ctx.getResources().getIdentifier(imageName, "drawable", packageName);
         return resID;
     }
